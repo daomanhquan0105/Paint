@@ -1,0 +1,99 @@
+﻿
+<header>
+    <div class="container">
+        <div class="text-center text-sm-left">
+            <a href="#" class="mr-20"><i class="fal fa-mobile-alt mr-1"></i> 0123.456.789</a>
+            <a href="#" class="mr-20"><i class="far fa-envelope mr-1"></i>demo@gmail.com</a>
+            <a href="#" class="mr-20"><i class="fas fa-map-marker-alt mr-1"></i>142 Phạm Văn Đồng</a>
+            <div class="float-right d-none d-sm-block">
+                <a href="#"><i class="fab fa-facebook-f mr-3"></i></a>
+                <a href="#"><i class="fab fa-youtube mr-3"></i></a>
+                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+            </div>
+        </div>
+        
+    </div>
+</header>
+<div class="container">
+    <div class="header-top">
+        <div class="row top justify-content-center">
+            <div class="col-5 col-sm-3 col-lg-3">
+                <img src="~/Images/Icon-groups/Logo_top.svg" class="img-fluid" />
+            </div>
+            <div class="col-sm-8 col-lg-7 align-self-center d-none d-sm-block">
+                <div class="input-group">
+                    <div class="input-group-prepend">  
+                        <button class="btn dropdown-toggle btn-block border-0" type="button" onclick="Dropdown_category()">Tất cả danh mục</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div role="separator" class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control border-0" placeholder="Tìm kiếm...">
+                    <button class="btn border-0 btn-search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-2 d-none d-lg-block align-self-center">
+                <button class="btn btn-danger btn-phone-number btn-block">
+                    Nhận tư vấn ngay: <br /><span>0123-456-789</span>
+                </button>
+            </div>
+            <div class="col-5 col-sm-1 d-block d-lg-none align-self-center text-right">
+                <a href="javascript:;" class="menu-mobile" onclick="Toggle_MenuMobile()"><i class="far fa-bars"></i></a>
+            </div>
+        </div> 
+    </div>
+</div>
+<div class="banner-menu">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-xl-3 d-none d-xl-block">
+                <div class="menu">
+                    <div class="align-self-center">
+                        <i class="far fa-bars mr-3"></i>Tất cả danh mục
+                    </div>
+                </div>                
+            </div>
+            <div class="col-12 col-xl-9">
+                <ul class="list-group-horizontal text-center text-lg-right">
+                    <li>
+                        <a href="#">TRANG CHỦ</a>
+                    </li>
+                    <li>
+                        <a href="#">SƠN NƯỚC </a>
+                    </li>
+                    <li>
+                        <a href="#">SƠN EPOXY</a>
+                    </li>
+                    <li>
+                        <a href="#">SƠN CHỐNG THẤM</a>
+                    </li>
+                    <li>
+                        <a href="#">BÁO GIÁ SƠN </a>
+                    </li>
+                    <li>
+                        <a href="#">BẢNG MÀU SƠN</a>
+                    </li>
+                    <li>
+                        <a href="#">DỊCH VỤ </a>
+                    </li>
+                    <li>
+                        <a href="#">CÔNG TRÌNH THI CÔNG</a>
+                    </li>
+                    <li>
+                        <a href="#">LIÊN HỆ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+       
+     </div>
+</div>
+
+
+@Html.Action("MenuMobilePartial", "Home")

@@ -1,0 +1,18 @@
+﻿<div class="category-panit">
+    <div class="title">
+        HỆ THỐNG SẢN PHẨM SƠN DULUX - MAXILITE
+        <a href="#" class="childrent">Xem tất cả <i class="fas fa-caret-right ml-2"></i></a>
+        @*<div class="d-block d-sm-none">
+            <a href="#">Xem tất cả <i class="fas fa-caret-right ml-2"></i></a>
+        </div>*@
+    </div>
+    <hr />
+    <div class="row justify-content-center no-gutter8">
+        @for (int i = 0; i < 5; i++)
+        {
+            <div class="col-6 col-md-4 col-lg mb-3">
+                @Html.Action("ProductCardPartial", "Home")
+            </div>
+        }
+    </div>
+</div>

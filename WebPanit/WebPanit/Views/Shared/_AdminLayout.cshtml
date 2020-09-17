@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/admincss", "~/Content/Font/css/css")
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="left_menu_profile">
+        <div class="left_menu_profile">
+            <ul>
+                <li data-id="1">
+                    <a class="root"><span>Admin</span></a><div class="sub hidden">
+                        <div class="first">@Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Thông tin chung", "ListConfigSite", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Thoát hệ thống", "LogoutAction", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+                <li data-id="3">
+                    <a class="root"><span>Quản lý Bài viết</span></a>
+                    <div class="sub hidden">
+                        <div class="first">@Html.ActionLink("Quản lý danh mục", "ListPostCategory", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Danh sách bài viết", "ListPost", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Bài viết giới thiệu", "ListAbout", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+                <li data-id="5">
+                    <a class="root"><span>Những người thủ lĩnh</span></a>
+                    <div class="sub hidden">
+                        <div>@Html.ActionLink("Danh sách thủ lĩnh", "ListLeader", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Thêm mới thủ lĩnh", "AddOrUpdateLeader", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+
+                <li data-id="7">
+                    <a class="root"><span>Quản lý Video</span></a><div class="sub hidden">
+                        <div class="first">@Html.ActionLink("Thêm mới Video", "AddOrUpDateVideo", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Danh sách video", "ListVideo", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+                <li data-id="9">
+                    <a class="root"><span>Quản lý Quảng cáo</span></a><div class="sub hidden">
+                        <div class="first">@Html.ActionLink("Thêm mới quảng cáo", "AddOrUpdatebanner", "Admin", null, new { @class = "text_link" })</div>
+                        <div>@Html.ActionLink("Danh sách quảng cáo", "ListBanner", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+                <li data-id="11">
+                    <a class="root"><span>Quản lý Liên hệ</span></a><div class="sub hidden">
+                        <div class="first">@Html.ActionLink("Danh sách liên hệ", "ListContact", "Admin", null, new { @class = "text_link" })</div>
+                        <div class="first">@Html.ActionLink("Danh sách thành viên", "ListMember", "Admin", null, new { @class = "text_link" })</div>
+                        <div></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="content_center_right">
+        <div class="content_center_right">
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery", "~/bundles/bootstrap", "~/bundles/jqueryval", "~/bundles/jqueryui")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckeditor/adapters/jquery.js"></script> 
+    <script src="~/Scripts/jquery.cookie-1.4.1.min.js"></script>
+    <script src="~/Scripts/CustomerJS/AdminJs.js"></script>
+    @RenderSection("scripts", false)
+    <script>
+        $("textarea.ckeditor").ckeditor();
+    </script>
+</body>
+</html>

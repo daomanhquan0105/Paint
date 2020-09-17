@@ -1,0 +1,131 @@
+﻿@model WebPanit.Models.Post
+
+@{
+    ViewBag.Title = "AddOrUpdatePost";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AddOrUpdatePost</h2>
+
+<form action="@Url.Action("AddOrUpdatePost","Admin")" method="post" enctype="multipart/form-data">
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (Model != null)
+    {
+        @Html.HiddenFor(model => model.Id)
+    }
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Subject)
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Content)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Image)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CreateDate)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.DisPlayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DisPlayOrder)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Active)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.FlagHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.FlagHome)
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.PostCategoryID, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PostCategoryID)
+            @Html.ValidationMessageFor(model => model.PostCategoryID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <button type="submit" id="btnSubmit" class="btn"></button>
+    </div>
+</form>
+
+
+@section scripts{
+    <script>
+        if ($("#Id").val() > 0) {
+            $("#title").html("Cập nhật banner/slider");
+            $("#btnSubmit").html('<i class="far fa-pen-square mr-1"></i>Lưu thay đổi');
+            $("#btnSubmit").addClass("btn-primary")
+        }
+        else {
+            $("#title").html("Thêm mới banner/slider");
+            $("#btnSubmit").html('<i class="far fa-plus mr-1"></i> Thêm mới');
+            $("#btnSubmit").addClass("btn-success")
+        }
+
+        function loadFile(event) {
+            var files = event.target.files;
+            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+            if (files[0]["type"].length && !acceptFileTypes.test(files[0]["type"])) {
+                alert("Chỉ chấp nhận định dạng jpeg, jpg, png, gif");
+                $("#LoadImages .picture").remove();
+                $("#LoadImages").append('<input type="file" class="picture" name="picture" onchange="loadFile(event)" />')
+                return false;
+            }
+            if (files[0]["size"] > 4000000) {
+                alert("Dung lượng ảnh lớn hơn 4MB");
+                $("#LoadImages .picture").remove();
+                $("#LoadImages").append('<input type="file" class="picture" name="picture" onchange="loadFile(event)" />')
+                return false;
+            }
+            $("#images-group .row").html('<div class="multiple-images-wrapper col-md-2"><img src="' + URL.createObjectURL(event.target.files[0]) + '" class="img-thumbnail" /><a href="javascript:;" id="img-0" class="btn btn-outline-dark" onclick="deleteImage(0)"><span>x</span></a></div>');
+        }
+        function deleteImage(divid) {
+            if (confirm('Bạn có chắc xóa ảnh này?')) {
+                $('#img-' + divid).parent().fadeOut().remove();
+                $("#LoadImages .picture").remove();
+                $("#LoadImages").append('<input type="file" class="picture" name="picture" onchange="loadFile(event)" />')
+            }
+        }
+    </script>
+}

@@ -1,0 +1,234 @@
+﻿@model WebPanit.Models.ConfigSite
+
+@{
+    ViewBag.Title = "AddOrUpdateConfig";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 id="title"></h2>
+
+<form action="@Url.Action("AddOrUpdateConfig","Admin")" method="post" enctype="multipart/form-data">
+
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (Model != null)
+    {
+        @Html.HiddenFor(model => model.Id)
+    }
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Facebook, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Facebook) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Youtube, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Youtube) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Instagram, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Instagram) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Twitter, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Twitter) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.GooglePlus, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GooglePlus) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Address) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PhoneNumber) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.LogoTop, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            <div id="LoadImagesTop">
+                <input class="picture" type="file" name="pictureTop" onchange="loadFileLogoTop(event)" />
+            </div>
+            <div id="images-group">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        if (Model.Id > 0)
+                        {
+                            <div class="multiple-images-wrapper col-md-2">
+                                <img src="~/Images/ConfigSites/@Model.LogoTop" class="multipleImage img-thumbnail" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.LogoBottom, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            <div id="LoadImagesBot">
+                <input class="picture" type="file" name="pictureBottom" onchange="loadFileLogoBot(event)" />
+            </div>
+            <div id="images-group-bot">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        if (Model.Id > 0)
+                        {
+                            <div class="multiple-images-wrapper col-md-2">
+                                <img src="~/Images/ConfigSites/@Model.LogoBottom" class="multipleImage img-thumbnail" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Payment) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Helper, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Helper) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Transport, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Transport) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.RefundPolicy, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.RefundPolicy) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.CopyRight, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CopyRight) 
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        @Html.EditorFor(model => model.Active)
+    </div>
+
+    <div class="form-group row">
+        <button type="submit" id="btnSubmit" class="btn"></button>
+    </div>
+</form>
+ @section scripts{
+    <script>
+        if ($("#Id").val() > 0) {
+            $("#title").html("Cập nhật config");
+            $("#btnSubmit").html('<i class="far fa-pen-square mr-1"></i>Lưu thay đổi');
+            $("#btnSubmit").addClass("btn-primary")
+        }
+        else {
+            $("#title").html("Thêm mới config");
+            $("#btnSubmit").html('<i class="far fa-plus mr-1"></i> Thêm mới');
+            $("#btnSubmit").addClass("btn-success")
+        }
+
+        function loadFileLogoTop(event) {
+            var files = event.target.files;
+            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+            if (files[0]["type"].length && !acceptFileTypes.test(files[0]["type"])) {
+                alert("Chỉ chấp nhận định dạng jpeg, jpg, png, gif");
+                $("#LoadImagesTop .picture").remove();
+                $("#LoadImagesTop").append('<input type="file" class="picture" name="pictureTop" onchange="loadFileLogoTop(event)" />')
+                return false;
+            }
+            if (files[0]["size"] > 4000000) {
+                alert("Dung lượng ảnh lớn hơn 4MB");
+                $("#LoadImagesTop .picture").remove();
+                $("#LoadImagesTop").append('<input type="file" class="picture" name="pictureTop" onchange="loadFileLogoTop(event)" />')
+                return false;
+            }
+            $("#images-group .row").html('<div class="multiple-images-wrapper col-md-2"><img src="' + URL.createObjectURL(event.target.files[0]) + '" class="img-thumbnail" /><a href="javascript:;" id="img-0" class="btn btn-outline-dark" onclick="deleteImage(0)"><span>x</span></a></div>');
+        }
+        function deleteImage(divid) {
+            if (confirm('Bạn có chắc xóa ảnh này?')) {
+                $('#img-' + divid).parent().fadeOut().remove();
+                $("#LoadImagesTop .picture").remove();
+                $("#LoadImagesTop").append('<input type="file" class="picture" name="picture" onchange="loadFileLogoTop(event)" />')
+            }
+        }
+        function loadFileLogoBot(event) {
+            var files = event.target.files;
+            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+            if (files[0]["type"].length && !acceptFileTypes.test(files[0]["type"])) {
+                alert("Chỉ chấp nhận định dạng jpeg, jpg, png, gif");
+                $("#LoadImagesBot .picture").remove();
+                $("#LoadImagesBot").append('<input type="file" class="picture" name="pictureBottom" onchange="loadFileLogoBot(event)" />')
+                return false;
+            }
+            if (files[0]["size"] > 4000000) {
+                alert("Dung lượng ảnh lớn hơn 4MB");
+                $("#LoadImagesBot .picture").remove();
+                $("#LoadImagesBot").append('<input type="file" class="picture" name="pictureBottom" onchange="loadFileLogoBot(event)" />')
+                return false;
+            }
+            $("#images-group-bot .row").html('<div class="multiple-images-wrapper col-md-2"><img src="' + URL.createObjectURL(event.target.files[0]) + '" class="img-thumbnail" /><a href="javascript:;" id="img-1" class="btn btn-outline-dark" onclick="deleteImageBot(1)"><span>x</span></a></div>');
+        }
+
+        function deleteImageBot(divid) {
+            if (confirm('Bạn có chắc xóa ảnh này?')) {
+                $('#img-' + divid).parent().fadeOut().remove();
+                $("#LoadImagesBot .picture").remove();
+                $("#LoadImagesBot").append('<input type="file" class="picture" name="picture" onchange="loadFileLogoBot(event)" />')
+            }
+        }
+    </script>    
+}

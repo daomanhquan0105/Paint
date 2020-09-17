@@ -1,0 +1,71 @@
+﻿@using WebPanit.Models;
+@model IEnumerable<Post>
+@{
+    ViewBag.Title = "ListPost";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Danh sách bài đăng</h2>
+<div class="mb-3">
+    <a href="@Url.Action("AddOrUpdatePost","Admin")" type="button" class="btn btn-info">
+        <i class="far fa-plus mr-1"></i> Thêm mới
+    </a>
+</div>
+<table class="table table-bordered mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm" id="TableList">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tiêu đề</th>
+            <th>Hình ảnh</th>
+            <th>Tên loại</th>
+            <th>Hoạt động</th>
+            <th>Hiện trang chủ</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+        @foreach (var post in Model)
+        {
+        <tr id="row-@post.Id">
+            <td>@post.DisPlayOrder</td>
+            <td>@post.Subject</td>
+            <td>
+                @if (post.Image != null)
+                {
+                    <img src="~/Images/Posts/@post.Image" class="img-fluid" width="200" />
+                }
+            </td>
+            <td>@post.PostCategory.CategoryName</td>
+            <td>@post.FlagHome</td>
+            <td>@post.Active</td>
+            <td>
+                <a href="@Url.Action("AddOrUpdatePost", "Admin", new {@id = post.Id})" class="btn btn-success" title="Sửa"><i class="fal fa-edit"></i></a>
+                <button class="btn btn-warning" onclick="Deletepost(@post.Id)" title="Xóa"><i class="fal fa-trash-alt"></i></button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+    function Deletepost(postID) {
+        if (confirm("Bạn có chắc muốn xóa post đã chọn không?")) {
+            $.ajax({
+                type: "Post",
+                url: "/Admin/DeletePost",
+                data: { id: postID },
+                success: function (res) {
+                    if (res) {
+                        alert("Xóa thành công!");
+                        $("#row-" + postID).fadeOut();
+                    }
+                    else {
+                        alert("Bị lỗi!");
+                    }
+                }
+            })
+        }
+    }
+    </script>
+}
+
