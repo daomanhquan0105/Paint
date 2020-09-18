@@ -369,8 +369,8 @@ header {
         }  
     }
 }
-ul.accordion { 
-    z-index: 10; 
+ul.accordion {
+    z-index: 10;
     border-left: 1px solid $color-gray-menu;
     border-right: 1px solid $color-gray-menu;
     border-bottom: 1px solid $color-gray-menu;
@@ -393,9 +393,11 @@ ul.accordion {
 
     li {
         padding: 0.625rem 0.625rem 0.625rem 1.75rem;
-        &:last-child{
-            margin-bottom:1.3rem;
+
+        &:last-child {
+            margin-bottom: 1.3rem;
         }
+
         a {
             font-family: Francisco-500;
             font-size: 1rem;
@@ -404,16 +406,36 @@ ul.accordion {
             transition: 0.3s;
 
             i {
+                position: relative;
                 outline: none;
                 font-size: 1.4rem;
+                transition: 0.5s;
 
                 &:before {
+                    position: absolute;
+                    content: "\f13a";
                     color: $color-white;
+                }
+
+                &::after {
+                    content: "\10f13a";
                 }
             }
 
             &:hover {
                 color: $color-yellow-bold;
+            }
+
+            &.collapsed {
+                i {
+                    &:before {
+                        content: "\f138";
+                    }
+
+                    &::after {
+                        content: "\10f138";
+                    }
+                }
             }
         }
 

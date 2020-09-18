@@ -543,18 +543,18 @@ namespace WebPanit.Controllers
             return true;
         }
 
-        public ActionResult DeletePost(int id)
-        {
-            Post post = _db.Posts.SingleOrDefault(x => x.Id == id);
-            if (id > 0 && post == null) return Json(false, JsonRequestBehavior.AllowGet);
-            _db.Posts.Remove(post);
-            _db.SaveChanges();
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult DeletePost(int id)
+        //{
+        //    Post post = _db.Posts.SingleOrDefault(x => x.Id == id);
+        //    if (id > 0 && post == null) return Json(false, JsonRequestBehavior.AllowGet);
+        //    _db.Posts.Remove(post);
+        //    _db.SaveChanges();
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
         #endregion
 
 
-        #region delete-deleteImage Leader
+        #region delete-deleteImage post
         public JsonResult DeletePost(int id)
         {
             Post post = _db.Posts.SingleOrDefault(x => x.Id == id);

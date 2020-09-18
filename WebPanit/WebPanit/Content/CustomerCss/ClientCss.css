@@ -282,12 +282,22 @@ ul.accordion {
       color: #7E7E7E;
       transition: 0.3s; }
       ul.accordion li a i {
+        position: relative;
         outline: none;
-        font-size: 1.4rem; }
+        font-size: 1.4rem;
+        transition: 0.5s; }
         ul.accordion li a i:before {
+          position: absolute;
+          content: "\f13a";
           color: #FFFFFF; }
+        ul.accordion li a i::after {
+          content: "\10f13a"; }
       ul.accordion li a:hover {
         color: #CF8A00; }
+      ul.accordion li a.collapsed i:before {
+        content: "\f138"; }
+      ul.accordion li a.collapsed i::after {
+        content: "\10f138"; }
     ul.accordion li ul li {
       padding: 0.3rem 0.3rem 0.3rem 1.75rem; }
       ul.accordion li ul li a {
