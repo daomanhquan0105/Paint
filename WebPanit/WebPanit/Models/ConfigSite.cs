@@ -36,9 +36,6 @@ namespace WebPanit.Models
         [Display(Name = "Email"), EmailAddress(ErrorMessage = "Email không hợp lệ"), StringLength(100, ErrorMessage = "Tối đa 100 ký tự"), UIHint("TextBox")]
         public string Email { get; set; }
 
-        [Display(Name = "Mật khâu"), StringLength(100, ErrorMessage = "Tối đa 100 ký tự"), UIHint("TextBox")]
-        public string Password { get; set; }
-
         [Display(Name = "Hình ảnh"), StringLength(500, ErrorMessage = "Tối đa 500 ký tự")]
         public string LogoTop { get; set; }
 

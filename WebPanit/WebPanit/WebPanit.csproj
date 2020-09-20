@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202009201019130_updataTableOrder3.designer.cs">
       <DependentUpon>202009201019130_updataTableOrder3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009201307224_updatetableConfigSite.cs" />
+    <Compile Include="Migrations\202009201307224_updatetableConfigSite.designer.cs">
+      <DependentUpon>202009201307224_updatetableConfigSite.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\ConfigSite.cs" />
@@ -1852,6 +1856,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009201019130_updataTableOrder3.resx">
       <DependentUpon>202009201019130_updataTableOrder3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201307224_updatetableConfigSite.resx">
+      <DependentUpon>202009201307224_updatetableConfigSite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

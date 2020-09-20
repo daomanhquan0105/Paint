@@ -169,3 +169,4 @@ G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOr
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOrder2.resources
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOrder3.resources
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.csprojAssemblyReference.cache
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updatetableConfigSite.resources
