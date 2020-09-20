@@ -1,55 +1,65 @@
-﻿<div class="breadcrumb">
+﻿@using WebPanit.Models
+@model Product
+@{ 
+    string quantity = Model.Quantity != 0 ? "Còn hàng" : "Hết hàng";
+    var config = (ConfigSite)HttpContext.Current.Application["ConfigSite"];
+}
+<div class="breadcrumb">
     <a href="@Url.Action("Index","Home")" class="mb-2"><i class="fas fa-home"></i></a>
-    <a href="#" class="mb-2">Sản phẩm</a>
-    <a href="javascript:;" class="mb-2">Sơn DULUX - MAXILITE</a>
-    <a href="#" class="mb-2">Sơn DULUX - MAXILITE nội thất</a>
-    <span class="mb-2">Z98 - DULUX INSPIRE MỜ NGOẠI ...</span>
+    <a href="@Url.Action("ListProduct","Home")" class="mb-2">Sản phẩm</a>
+    <a href="@Url.Action("ListProduct","Home",new { tradeMarkId=Model.TradeMarkID,name=Html.ConvertToUnSign(Model.TradeMark.Name)})" class="mb-2">@Model.TradeMark.Name</a>
+    <a href="@Url.Action("ListProduct","Home",new { tradeMarkId=Model.TradeMarkID,name=Html.ConvertToUnSign(Model.TradeMark.Name)})" class="mb-2">@Model.TradeMark.Name nội thất</a>
+    <span class="mb-2">@Model.Name.Substring(1,15) ...</span>
 </div>
 <div class="detail">
     <div class="row">
         <div class="col-12 col-sm-8 col-lg-6">
-            <div class="slider-for">
-                @for (int i = 0; i < 5; i++)
+            <div class="slider-for"> 
+                @for (int i = 0; i < Model.Images.Split(';').Length-1; i++)
                 {
                     <div class="slide">
-                        <img src="~/Images/Product/Rectangle 72 (1).svg" class="card-img-top" />
+                        <img src="~/Images/Products/@Model.Images.Split(';')[i]" class="card-img-top" />
                     </div>
                 }
 
             </div>
             <div class="slider-nav">
-                @for (int i = 0; i < 5; i++)
+                @for (int i = 0; i < Model.Images.Split(';').Length - 1; i++)
                 {
                     <div class="slide">
-                        <img src="~/Images/Product/Rectangle 72 (1).svg" class="card-img-top" />
+                        <img src="~/Images/Products/@Model.Images.Split(';')[i]" class="card-img-top" />
                     </div>
                 }
             </div>
         </div>
         <div class="col-12 col-lg-6 information">
             <div class="name">
-                Z98 - DULUX INSPIRE MỜ NGOẠI THẤT BỀN ĐẸP MÀU TỰ CHỌN (18L)
+                @Model.Name
             </div>
             <ul class="description">
                 <li>
-                    <span>Mã sản phẩm :</span> <span>12345</span>
+                    <span>Mã sản phẩm :</span> <span>@Model.Code</span>
                 </li>
                 <li>
-                    <span>Danh mục:</span> <span>Sơn Dulux ngoại thất</span>
+                    <span>Danh mục:</span> <span>@Model.TradeMark.Name ngoại thất</span>
                 </li>
                 <li>
-                    <span>Tình trạng: </span> <span>Còn hàng</span>
+                    <span>Tình trạng: </span> <span>@quantity</span>
                 </li>
                 <li>
-                    <span>Mô tả :</span> <span> SƠN NGOẠI THẤT DULUX INSPIRE SẮC MÀU BỀN ĐẸP. Công nghệ Chromabrite giữ cho ngôi nhà luôn tươi mới dài lâu. Màng sơn bền chắc có thể chống lại những tác hại của nước, rêu mốc và bong tróc. Với sơn NGOẠI THẤT Dulux Inspire, nhà bạn sẽ trông luôn mới và sẵn sàng đón khách ghé thăm</span>
+                    <span>Mô tả :</span> <span>@Model.Description</span>
                 </li>
             </ul>
             <div class="product-price">
-                2,580,000đ <u class="ml-3">3,970,000đ </u>
+                @Model.Price.ToString("#,##") VNĐ
+                @if (Model.OriginalPrice != 0)
+                {
+                    <u class="ml-3">@Model.OriginalPrice.ToString("#,##") VNĐ</u>
+                }
             </div>
-            <button class="btn btn-buy-product">
+            <a href="@Url.Action("OrderProduct","Home",new { id=Model.Id,name=Html.ConvertToUnSign(Model.Name)})" class="btn btn-buy-product">
                 LIÊN HỆ MUA HÀNG
-            </button>
+            </a>
         </div>
     </div>
     <nav>
@@ -73,11 +83,21 @@
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="Detail" role="tabpanel" aria-labelledby="nav-home-tab">abc</div>
-        <div class="tab-pane fade" id="Paint-price" role="tabpanel" aria-labelledby="nav-profile-tab">.a.</div>
-        <div class="tab-pane fade" id="Payment" role="tabpanel" aria-labelledby="nav-contact-tab">..b.</div>
-        <div class="tab-pane fade" id="Ship" role="tabpanel" aria-labelledby="nav-profile-tab">...c</div>
-        <div class="tab-pane fade" id="Warranty" role="tabpanel" aria-labelledby="nav-contact-tab">..d.</div>
+        <div class="tab-pane fade show active" id="Detail" role="tabpanel" aria-labelledby="nav-home-tab">
+            @Html.Raw(Model.Detail)
+        </div>
+        <div class="tab-pane fade" id="Paint-price" role="tabpanel" aria-labelledby="nav-profile-tab">
+            @Html.Raw(config.PricePaint)
+        </div>
+        <div class="tab-pane fade" id="Payment" role="tabpanel" aria-labelledby="nav-contact-tab">
+            @Html.Raw(config.Payment)
+        </div>
+        <div class="tab-pane fade" id="Ship" role="tabpanel" aria-labelledby="nav-profile-tab">
+            @Html.Raw(config.Transport)
+        </div>
+        <div class="tab-pane fade" id="Warranty" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <p><strong>Thời gian bảo hành:</strong> @Model.Warranty tháng</p>
+        </div>
     </div>
 </div>
 

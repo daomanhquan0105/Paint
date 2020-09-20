@@ -1,52 +1,58 @@
-﻿
+﻿@using WebPanit.Models;
+@model IEnumerable<ProductCategory>
+@{
+    var config = (ConfigSite)HttpContext.Current.Application["ConfigSite"];
+}
+
 <header>
     <div class="container">
         <div class="text-center text-sm-left">
-            <a href="#" class="mr-20"><i class="fal fa-mobile-alt mr-1"></i> 0123.456.789</a>
-            <a href="#" class="mr-20"><i class="far fa-envelope mr-1"></i>demo@gmail.com</a>
-            <a href="#" class="mr-20"><i class="fas fa-map-marker-alt mr-1"></i>142 Phạm Văn Đồng</a>
+            <a href="javascript:;" class="mr-20"><i class="fal fa-mobile-alt mr-1"></i> 0123.456.789</a>
+            <a href="#" class="mr-20"><i class="far fa-envelope mr-1"></i>@config.Email</a>
+            <a href="#" class="mr-20"><i class="fas fa-map-marker-alt mr-1"></i>@config.Address</a>
             <div class="float-right d-none d-sm-block">
-                <a href="#"><i class="fab fa-facebook-f mr-3"></i></a>
-                <a href="#"><i class="fab fa-youtube mr-3"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                <a href="@config.Facebook"><i class="fab fa-facebook-f mr-3"></i></a>
+                <a href="@config.Youtube"><i class="fab fa-youtube mr-3"></i></a>
+                <a href="@config.GooglePlus"><i class="fab fa-google-plus-g"></i></a>
             </div>
         </div>
-        
+
     </div>
 </header>
 <div class="container">
     <div class="header-top">
         <div class="row top justify-content-center">
             <div class="col-5 col-sm-3 col-lg-3">
-                <img src="~/Images/Icon-groups/Logo_top.svg" class="img-fluid" />
+                <img src="~/Images/ConfigSites/@config.LogoTop" class="img-fluid" />
             </div>
             <div class="col-sm-8 col-lg-7 align-self-center d-none d-sm-block">
-                <div class="input-group">
-                    <div class="input-group-prepend">  
-                        <button class="btn dropdown-toggle btn-block border-0" type="button" onclick="Dropdown_category()">Tất cả danh mục</button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
+                <form action="@Url.Action("ProductSearch","Home")" method="get">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <select class="custom-select border-0" name="ProductCategoryId" id="inputGroupSelect01">
+                                <option selected>Tất cả danh mục</option>
+                                @foreach (ProductCategory productCategory in Model)
+                                {
+                                    <option value="@productCategory.ID">@productCategory.Name</option>
+                                } 
+                            </select>
                         </div>
+                        <input type="text" name="ProductName" class="form-control border-0" placeholder="Tìm kiếm...">
+                        <button type="submit" class="btn border-0 btn-search">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                    <input type="text" class="form-control border-0" placeholder="Tìm kiếm...">
-                    <button class="btn border-0 btn-search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                </form>
             </div>
             <div class="col-lg-2 d-none d-lg-block align-self-center">
                 <button class="btn btn-danger btn-phone-number btn-block">
-                    Nhận tư vấn ngay: <br /><span>0123-456-789</span>
+                    Nhận tư vấn ngay: <br /><span>@config.PhoneNumber</span>
                 </button>
             </div>
             <div class="col-5 col-sm-1 d-block d-lg-none align-self-center text-right">
                 <a href="javascript:;" class="menu-mobile" onclick="Toggle_MenuMobile()"><i class="far fa-bars"></i></a>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 <div class="banner-menu">
@@ -57,42 +63,41 @@
                     <div class="align-self-center">
                         <i class="far fa-bars mr-3"></i>Tất cả danh mục
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="col-12 col-xl-9">
                 <ul class="list-group-horizontal text-center text-lg-right">
                     <li>
-                        <a href="#">TRANG CHỦ</a>
+                        <a href="@Url.Action("Index","Home")">TRANG CHỦ</a>
+                    </li>
+                    @foreach (ProductCategory productCategory in Model.Where(x=>x.ShowMenuVertical==true).Take(3))
+                    {
+                        <li class="d-none d-md-inline">
+                            <a href="@Url.Action("ListProduct","Home",new { productCategoryID=productCategory.ID,name=Html.ConvertToUnSign(productCategory.Name) })">
+                                @productCategory.Name
+                            </a>
+                        </li>
+                    } 
+                    <li>
+                        <a href="@Url.Action("PaintPrice","Home")">BÁO GIÁ SƠN </a>
                     </li>
                     <li>
-                        <a href="#">SƠN NƯỚC </a>
+                        <a href="@Url.Action("TableColorPaint","Home")">BẢNG MÀU SƠN</a>
                     </li>
                     <li>
-                        <a href="#">SƠN EPOXY</a>
+                        <a href="@Url.Action("ServiceView","Home")">DỊCH VỤ</a>
                     </li>
                     <li>
-                        <a href="#">SƠN CHỐNG THẤM</a>
+                        <a href="@Url.Action("ServiceView","Home")">CÔNG TRÌNH THI CÔNG</a>
                     </li>
                     <li>
-                        <a href="#">BÁO GIÁ SƠN </a>
-                    </li>
-                    <li>
-                        <a href="#">BẢNG MÀU SƠN</a>
-                    </li>
-                    <li>
-                        <a href="#">DỊCH VỤ </a>
-                    </li>
-                    <li>
-                        <a href="#">CÔNG TRÌNH THI CÔNG</a>
-                    </li>
-                    <li>
-                        <a href="#">LIÊN HỆ</a>
+                        <a href="@Url.Action("ContactView","Home")">LIÊN HỆ</a>
                     </li>
                 </ul>
             </div>
         </div>
-       
-     </div>
+
+    </div>
 </div>
 
 

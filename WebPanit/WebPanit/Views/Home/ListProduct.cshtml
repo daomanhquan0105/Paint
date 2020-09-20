@@ -1,45 +1,55 @@
-﻿
+﻿@using WebPanit.Models;
+@using WebPanit.ViewModel
+@using PagedList.Mvc
+
+@model ProductViewModel
 @{
-    ViewBag.Title = "ListProduct";
+    ViewBag.Title = Model.ProductCategory != null ? "Danh sách sản phẩm " + Model.ProductCategory.Name : (Model.TradeMark != null ? "Danh sách sản phẩm - " + Model.TradeMark.Name : "Danh sách sản phẩm");
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+    string title = Model.ProductCategory != null ? Model.ProductCategory.Name : (Model.TradeMark != null ? Model.TradeMark.Name : "Website Sơn skey");
 }
 
-<div class="list-product">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-3 d-none d-lg-block">
-                @Html.Action("MenuXLPartial", "Home")
-            </div>
-            <div class="col-12 col-lg-9">
-                @Html.Action("ListProdutPartial", "Home")
-            </div>
-        </div> 
-
-        <div class="category-panit d-block d-lg-none">
-            <div class="title">
-                BÀI ĐĂNG GẦN ĐÂY
-            </div>
-            <hr />
-            <div class="row">
-                @for (int i = 0; i < 5; i++)
-                {
-                    <div class="col-6 col-md-4 col-lg mb-3">
-                        <div class="card">
-                            <img src="~/Images/Post/Rectangle 38.svg" class="card-img-top" />
-                            <div class="card-body">
-                                <div class="product-name">
-                                    <a href="#">Lorem ipsum dolor sit amet consectetuer adipiscing</a>
-                                </div>
-                                <div class="create-date">
-                                    <i class="far fa-calendar-alt mr-2"></i>  25/02/2020
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-
-        </div>
-
-    </div>
+<div class="breadcrumb">
+    <a href="@Url.Action("Index","Home")" class="mb-2"><i class="fas fa-home"></i></a>
+    <a href="@Url.Action("ListProduct","Home")" class="mb-2">Sản phẩm</a>
+    @if (Model.TradeMark != null)
+    {
+        <a href="@Url.Action("ListProduct","Home",new { tradeMarkID=Model.TradeMark.Id ,name=Html.ConvertToUnSign(Model.TradeMark.Name)})" class="mb-2">@Model.TradeMark.Name</a>
+        <span class="mb-2">@Model.TradeMark.Name nội thất</span>
+    }
+    @if (Model.ProductCategory != null)
+    {
+        <a href="@Url.Action("ListProduct","Home",new { productCategoryID=Model.ProductCategory.ID,name=Html.ConvertToUnSign(Model.ProductCategory.Name) })" class="mb-2">@Model.ProductCategory.Name</a>
+        <span class="mb-2">@Model.ProductCategory.Name nội thất</span>
+    }
 </div>
+
+@if (Model.Products.Count() > 0)
+{
+    <div class="category-panit">
+        <div class="title">
+            HỆ THỐNG SẢN PHẨM @title
+        </div>
+        <hr />
+        <div class="row no-gutter8">
+            @foreach (Product product in Model.Products)
+            {
+                <div class="col-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    @Html.Partial("ProductCardPartial", product)
+                </div>
+            }
+        </div>
+    </div>
+    if (Model.Products.PageCount > 1)
+    {
+        <div class="text-center">
+            @Html.PagedListPager(Model.Products, page => Url.Action("ListProduct", new { page }))
+        </div>
+    }
+}
+else
+{
+    <h2>Danh sách sản phẩm đang được cập nhật vui lòng quay lại sau!!   </h2>
+}
+@Html.Action("LasterPost", "Home")
 

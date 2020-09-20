@@ -1,7 +1,7 @@
 ﻿@model WebPanit.Models.FeedBack
 
 @{
-    ViewBag.Title = "AddOrUpdateFeedBack";
+    ViewBag.Title =Model != null ? (Model.ID > 0 ? "Cập nhật phản hồi" : "Thêm mới phản hồi") : "Thêm mới phản hồi";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 

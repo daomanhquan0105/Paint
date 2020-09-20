@@ -1,0 +1,85 @@
+﻿@using WebPanit.Models
+@model IEnumerable<LibraryImage>
+@{
+    ViewBag.Title = "danh sách thư viện ảnh";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Album ảnh</h2>
+<div class="mb-3">
+    <a href="@Url.Action("AddOrUpdateItemForAlbum","Admin")" type="button" class="btn btn-outline-info">
+        <i class="far fa-plus mr-1"></i> Thêm mới
+    </a>
+</div>
+<table class="table table-bordered table-striped mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Ảnh đại diện</th>
+            <th>Hoạt động</th>
+            <th>Hiện trang chủ</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+        @foreach (LibraryImage item in Model)
+        {
+            <tr id="row-@item.Id">
+                <td>@item.DisplayOrder</td>
+                <td>
+                    @if (item.Avatar != null)
+                    {
+                        <img src="~/Images/LibraryImages/@item.Avatar" style="width:100px" />
+                    }
+                </td>
+                <td>
+                    <input type="checkbox" name="Active" checked="@item.Active" onclick="CheckActive(@item.Id)" />
+                </td>
+                <td>
+                    <input type="checkbox" name="FlagHome" checked="@item.FlagHome" onclick="CheckFlagHome(@item.Id)" />
+                </td>
+                <td>
+                    <a href="@Url.Action("AddOrUpdateItemForAlbum", "Admin", new {@id = item.Id})" class="btn btn-success" title="Sửa"><i class="fal fa-edit"></i></a>
+                    <button class="btn btn-warning" onclick="DeleteItemAlbum(@item.Id)" title="Xóa"><i class="fal fa-trash-alt"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        function DeleteItemAlbum(itemID) {
+            if (confirm("Bạn có chắc muốn xóa khách hàng tiêu biểu đã chọn không?")) {
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/DeleteItemAlbum",
+                    data: { id: itemID },
+                    success: function (res) {
+                        if (res) {
+                            alert("Xóa thành công!");
+                            $("#row-" + itemID).fadeOut();
+                        }
+                        else {
+                            alert("Bị lỗi!");
+                        }
+                    }
+                })
+            }
+        }
+        function CheckActive(itemID) {
+            $.ajax({
+                type: "Post",
+                url: "/Admin/CheckActiveItemAlbum",
+                data: { id: itemID }
+            })
+        } 
+        function CheckFlagHome(itemID) {
+            $.ajax({
+                type: "Post",
+                url: "/Admin/CheckFlagHomeItemAlbum",
+                data: { id: itemID }
+            })
+        } 
+    </script>
+}
+

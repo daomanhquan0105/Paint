@@ -48,11 +48,17 @@ namespace WebPanit.Models
         [Display(Name = "Hướng dẫn thanh toán"), Column(TypeName = "ntext"), UIHint("EditorBox")]
         public string Payment { get; set; }
 
+        [Display(Name = "Liên hệ"), Column(TypeName = "ntext"), UIHint("EditorBox")]
+        public string Contact { get; set; }
+
         [Display(Name = "Giúp đỡ và tư vấn"), Column(TypeName = "ntext"), UIHint("EditorBox")]
         public string Helper { get; set; }
 
         [Display(Name = "Vận chuyển và trả hàng"), Column(TypeName = "ntext"), UIHint("EditorBox")]
         public string  Transport { get; set; }
+
+        [Display(Name = "Báo giá sơn"), Column(TypeName = "ntext"), UIHint("EditorBox")]
+        public string PricePaint { get; set; }
 
         [Display(Name = "Chính sách hoàn tiền"), Column(TypeName = "ntext"), UIHint("EditorBox")]
         public string RefundPolicy { get; set; } 

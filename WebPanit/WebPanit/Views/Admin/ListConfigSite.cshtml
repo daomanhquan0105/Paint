@@ -1,18 +1,18 @@
 ﻿@using WebPanit.Models;
 @model IEnumerable<ConfigSite>
 @{
-    ViewBag.Title = "ListConfigSite";
+    ViewBag.Title = "Danh sách cấu hình web";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Config</h2>
+<h2>Danh sách cấu hình web</h2>
 <div class="box_content">
     @*<p>
         <a href="@Url.Action("AddOrUpdateConfig","Admin")" type="button" class="btn btn-info">
             <i class="far fa-plus mr-1"></i> Thêm mới
         </a>
     </p>*@
-    <table class="table table-bordered mt-4 mb-4 p-3 bg-white border shadow-sm">
+    <table class="table table-bordered table-striped mt-4 mb-4 p-3 bg-white border shadow-sm">
         <thead>
             <tr> 
                 <th>Email</th>

@@ -1,0 +1,65 @@
+﻿@using WebPanit.Models;
+@model IEnumerable<PostCategory>
+@{
+    ViewBag.Title = "Danh sách thể loại bài đăng/tin tức";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Danh sách thể loại bài đăng</h2>
+<div class="mb-3">
+    <a href="@Url.Action("AddOrUpDatePostCategory","Admin")" type="button" class="btn btn-info">
+        <i class="far fa-plus mr-1"></i> Thêm mới
+    </a>
+</div>
+<table class="table table-bordered table-striped mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm" >
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên thể loại</th> 
+            <th>Danh mục gốc</th>
+            <th>Hoạt động</th>
+            <th>Hiện trang chủ</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+        @foreach (PostCategory postCategory in Model)
+        {
+            <tr id="row-@postCategory.ID">
+                <td>@postCategory.DisplayOrder</td>
+                <td>@postCategory.CategoryName</td>
+                <td>@postCategory.PostCategoryParents.Name</td>
+                <td>@postCategory.ShowOnHome</td>
+                <td>@postCategory.Active</td>
+                <td>
+                    <a href="@Url.Action("AddOrUpDatePostCategory", "Admin", new {@id = postCategory.ID})" class="btn btn-success" title="Sửa"><i class="fal fa-edit"></i></a>
+                    <button class="btn btn-warning" onclick="DeletepostCategory(@postCategory.ID)" title="Xóa"><i class="fal fa-trash-alt"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        function DeletepostCategory(postCategoryID) {
+        if (confirm("Bạn có chắc muốn xóa thể loại bài viết đã chọn không?")) {
+            $.ajax({
+                type: "Post",
+                url: "/Admin/DeletePostCategory",
+                data: { catId: postCategoryID },
+                success: function (res) {
+                    if (res) {
+                        alert("Xóa thành công!");
+                        $("#row-" + postCategoryID).fadeOut();
+                    }
+                    else {
+                        alert("Bị lỗi!");
+                    }
+                }
+            })
+        }
+    }
+    </script>
+}
+
+

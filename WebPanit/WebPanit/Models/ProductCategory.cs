@@ -14,8 +14,8 @@ namespace WebPanit.Models
         public int ID { get; set; }
 
 
-        [DisplayName("Tên loại thuốc"), UIHint("TextBox")]
-        [Required(ErrorMessage = "Hãy nhập tên cho loại thuốc")]
+        [DisplayName("Tên loại sản phẩm"), UIHint("TextBox")]
+        [Required(ErrorMessage = "Hãy nhập tên cho loại sản phẩm")]
         [StringLength(250)]
         public string Name { get; set; }
 
@@ -34,9 +34,9 @@ namespace WebPanit.Models
         [DisplayName("Show trang chủ")]
         public bool FlagHome { get; set; }
 
-        public List<TagProductCategory> ListTagProductCategory { get; set; }
+        public virtual List<TagProductCategory> ListTagProductCategory { get; set; }
 
-        public List<Product> Products { get; set; }
+        public virtual List<Product> Products { get; set; }
 
         public ProductCategory()
         {

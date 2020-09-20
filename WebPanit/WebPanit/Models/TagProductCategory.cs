@@ -17,14 +17,15 @@ namespace WebPanit.Models
         [Column(Order = 1)]
         public int ProductCategoryID { get; set; }
         public string TagName { get; set; }
+        [DisplayName("Thứ tự hiện thị"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương"), UIHint("NumberBox")]
         public int DisplayOrder { get; set; }
         public bool Active { get; set; }
 
         [ForeignKey("TradeMarkID")]
-        public TradeMark TradeMark { get; set; }
+        public virtual TradeMark TradeMark { get; set; }
 
         [ForeignKey("ProductCategoryID")]
-        public ProductCategory ProductCategory { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
         public TagProductCategory()
         {
             DisplayOrder = 1;

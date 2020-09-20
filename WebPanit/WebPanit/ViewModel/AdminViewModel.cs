@@ -13,8 +13,6 @@ namespace WebPanit.ViewModel
         public string UserName { get; set; }
         [Display(Name = "Mật khẩu"), StringLength(120, ErrorMessage = "Tối đa 50 ký tự"), Required(ErrorMessage = "Hãy nhập mật khẩu")]
         public string PassWord { get; set; }
-        [Display(Name = "Xác nhận mật khẩu"), StringLength(120, ErrorMessage = "Tối đa 50 ký tự"), Required(ErrorMessage = "Hãy nhập lại để mật khẩu")]
-        public string ChangePassword { get; set; }
     }
     public class ChangPasswordViewModel
     {

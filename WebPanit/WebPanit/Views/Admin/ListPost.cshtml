@@ -1,7 +1,7 @@
-﻿@using WebPanit.Models;
+﻿@using WebPanit.Models; 
 @model IEnumerable<Post>
 @{
-    ViewBag.Title = "ListPost";
+    ViewBag.Title = "Danh sách bài đăng";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -11,7 +11,7 @@
         <i class="far fa-plus mr-1"></i> Thêm mới
     </a>
 </div>
-<table class="table table-bordered mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm" id="TableList">
+<table class="table table-bordered table-striped mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm" id="TableList">
     <thead>
         <tr>
             <th>STT</th>
@@ -23,7 +23,7 @@
             <th>Action</th>
         </tr>
     </thead>
-    <tbody class="table-light">
+    <tbody class="table-light">  
         @foreach (var post in Model)
         {
         <tr id="row-@post.Id">
@@ -35,7 +35,9 @@
                     <img src="~/Images/Posts/@post.Image" class="img-fluid" width="200" />
                 }
             </td>
-            <td>@post.PostCategory.CategoryName</td>
+            <td>
+                @post.PostCategory.CategoryName
+            </td>
             <td>@post.FlagHome</td>
             <td>@post.Active</td>
             <td>

@@ -1,12 +1,18 @@
-﻿
+﻿@using WebPanit.Models;
+@model Product
+
 <div class="card">
-    <a href="#" class="image"><img src="~/Images/Product/Rectangle 72.svg" class="img-fluid" /></a>
+    <a href="@Url.Action("ProductDetail","Home",new { id=Model.Id,name=Html.ConvertToUnSign(Model.Name) })" class="image">
+        <img src="~/Images/Products/@Model.Images.Split(';')[0]" class="img-fluid" />
+    </a>
     <div class="card-body text-center">
         <div class="product-name">
-            <a href="#">Z98 - DULUX INSPIRE MỜ NGOẠI THẤT BỀN ĐẸP MÀU TỰ CHỌN (18L)</a>
+            <a href="@Url.Action("ProductDetail","Home",new { id=Model.Id,name=Html.ConvertToUnSign(Model.Name) })">
+                @Model.Name
+            </a>
         </div>
         <div class="product-price">
-            2,580,000đ
+            @Model.Price.ToString("#,##") vnđ
         </div>
     </div>
 </div>

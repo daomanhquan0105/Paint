@@ -1,6 +1,7 @@
-﻿
+﻿@using WebPanit.Models;
+@model Product
 @{
-    ViewBag.Title = "ProductDetail";
+    ViewBag.Title = "Chi tiết sản phẩm";
 }
 
 <div class="list-product">
@@ -10,7 +11,7 @@
                 @Html.Action("MenuXLPartial", "Home")
             </div>  
             <div class="col-12 col-lg-9">
-                @Html.Action("ProductDetailPartial", "Home")
+                @Html.Partial("ProductDetailPartial", Model)
 
                 <div class="category-panit ">
                     <div class="title">
@@ -18,12 +19,12 @@
                     </div>
                     <hr />
                     <div class="post-wrapper">
-                        @for (int i = 0; i < 5; i++)
+                        @foreach (Product product in Model.ProductCategory.Products)
                         {
                             <div class="post">
-                                @Html.Action("ProductCardPartial", "Home")
+                                @Html.Partial("ProductCardPartial", product)
                             </div>
-                        }
+                        } 
                     </div>
                 </div>
             </div>

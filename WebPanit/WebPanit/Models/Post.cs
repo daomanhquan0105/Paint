@@ -15,7 +15,7 @@ namespace WebPanit.Models
         [Display(Name = "Tiêu đề", Description = "Tiêu đề dài tối đa 100 ký tự"), Required(ErrorMessage = "Hãy nhập tiêu đề"), StringLength(100, ErrorMessage = "Tối đa 100 ký tự"), UIHint("TextBox")]
         public string Subject { get; set; }
 
-        [Display(Name = "Trích dẫn ngắn"), Required(ErrorMessage = "Hãy nhập trích dẫn ngắn"), StringLength(500, ErrorMessage = "Tối đa 500 ký tự"), DataType(DataType.MultilineText)]
+        [Display(Name = "Trích dẫn ngắn"), Required(ErrorMessage = "Hãy nhập trích dẫn ngắn"), StringLength(500, ErrorMessage = "Tối đa 500 ký tự"),UIHint("TextArea")]        
         public string Description { get; set; }
 
         [Display(Name = "Nội dung"), UIHint("EditorBox"), Required(ErrorMessage = "Hãy nhập nội dung cho bài đăng")]
@@ -41,7 +41,7 @@ namespace WebPanit.Models
         public int PostCategoryID { get; set; }
 
         [ForeignKey("PostCategoryID")]
-        public PostCategory PostCategory { get; set; }
+        public virtual PostCategory PostCategory { get; set; }
 
         public Post()
         {

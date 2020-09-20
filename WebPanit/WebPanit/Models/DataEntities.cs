@@ -19,21 +19,20 @@ namespace WebPanit.Models
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostCategory> Table_PostCategory { get; set; }
-        public DbSet<Product> Product { get; set; }
+        public DbSet<PostCategoryParent> PostCategoryParents { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductCategory> Table_ProductCategory { get; set; }
         public DbSet<TradeMark> TradeMarks { get; set; }
         public DbSet<TagProductCategory> Tag_ProductCategry_TradeMarks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ReceiveEmail> ReceiveEmails { get; set; }
 
-        //public DbSet<AgencyPolicy> AgencyPolicies { get; set; }
-        //public DbSet<CapacityProfile> CapacityProfiles { get; set; }
-        //public DbSet<Condition> Conditions { get; set; }
-        //public DbSet<ConstructionRecord> ConstructionRecords { get; set; }
-        //public DbSet<PrivacyPolicy> PrivacyPolicies { get; set; }
-        //public DbSet<PromotionPolicy> PromotionPolicies { get; set; }
-        //public DbSet<Service> Services { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public DbSet<TypicalCustomer> TypicalCustomers { get; set; }
+        public DbSet<LibraryImage> LibraryImages { get; set; }
+        
+        
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

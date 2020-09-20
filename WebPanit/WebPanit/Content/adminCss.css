@@ -427,3 +427,20 @@ input[type=submit]:focus {
     right:0.25rem;
     padding:0.25rem 0.5rem;
 }
+.picture.display {
+    display: none;
+}
+#sortable {
+    padding:0;
+    margin:0;
+    margin-top:1rem;
+    display:flex;
+}
+#sortable li{
+    list-style:none;
+}
+    #sortable li img{
+        width:85px;
+        height:85px;
+        object-fit:contain;
+    }

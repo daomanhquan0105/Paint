@@ -172,16 +172,74 @@
     <Compile Include="Migrations\202009170934074_RemoveTable.designer.cs">
       <DependentUpon>202009170934074_RemoveTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009180401180_updateDatabaseForVirtual.cs" />
+    <Compile Include="Migrations\202009180401180_updateDatabaseForVirtual.designer.cs">
+      <DependentUpon>202009180401180_updateDatabaseForVirtual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009180416363_updateForTableTradeMark.cs" />
+    <Compile Include="Migrations\202009180416363_updateForTableTradeMark.designer.cs">
+      <DependentUpon>202009180416363_updateForTableTradeMark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009180839413_updatefortableProduct.cs" />
+    <Compile Include="Migrations\202009180839413_updatefortableProduct.designer.cs">
+      <DependentUpon>202009180839413_updatefortableProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009190248579_updateTradeMarkForProduct.cs" />
+    <Compile Include="Migrations\202009190248579_updateTradeMarkForProduct.designer.cs">
+      <DependentUpon>202009190248579_updateTradeMarkForProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009190403582_AddTableToDatabase.cs" />
+    <Compile Include="Migrations\202009190403582_AddTableToDatabase.designer.cs">
+      <DependentUpon>202009190403582_AddTableToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009190406286_UpdateTableContact.cs" />
+    <Compile Include="Migrations\202009190406286_UpdateTableContact.designer.cs">
+      <DependentUpon>202009190406286_UpdateTableContact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009190433474_UpdateTableTypicalCustomer.cs" />
+    <Compile Include="Migrations\202009190433474_UpdateTableTypicalCustomer.designer.cs">
+      <DependentUpon>202009190433474_UpdateTableTypicalCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009190608286_UpdatedTableLibraryImages.cs" />
+    <Compile Include="Migrations\202009190608286_UpdatedTableLibraryImages.designer.cs">
+      <DependentUpon>202009190608286_UpdatedTableLibraryImages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009200227431_addtablePostcategoryParent.cs" />
+    <Compile Include="Migrations\202009200227431_addtablePostcategoryParent.designer.cs">
+      <DependentUpon>202009200227431_addtablePostcategoryParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009200718023_updatatableConfig.cs" />
+    <Compile Include="Migrations\202009200718023_updatatableConfig.designer.cs">
+      <DependentUpon>202009200718023_updatatableConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009200836306_tableReceiveEmail.cs" />
+    <Compile Include="Migrations\202009200836306_tableReceiveEmail.designer.cs">
+      <DependentUpon>202009200836306_tableReceiveEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009200922163_updataTableOrder.cs" />
+    <Compile Include="Migrations\202009200922163_updataTableOrder.designer.cs">
+      <DependentUpon>202009200922163_updataTableOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009201017352_updataTableOrder2.cs" />
+    <Compile Include="Migrations\202009201017352_updataTableOrder2.designer.cs">
+      <DependentUpon>202009201017352_updataTableOrder2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009201019130_updataTableOrder3.cs" />
+    <Compile Include="Migrations\202009201019130_updataTableOrder3.designer.cs">
+      <DependentUpon>202009201019130_updataTableOrder3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\ConfigSite.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\DataEntities.cs" />
     <Compile Include="Models\FeedBack.cs" />
+    <Compile Include="Models\LibraryImage.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostCategory.cs" />
+    <Compile Include="Models\PostCategoryParent.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\ReceiveEmail.cs" />
@@ -191,6 +249,14 @@
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\MenuXLViewModel.cs" />
+    <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\PaintColor.cs" />
+    <Compile Include="ViewModel\PostCategoryViewModel.cs" />
+    <Compile Include="ViewModel\PostViewModel.cs" />
+    <Compile Include="ViewModel\ProductCategoryViewModel.cs" />
+    <Compile Include="ViewModel\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\adminCss.css" />
@@ -211,6 +277,9 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
     <Content Include="Content\CustomerCss\ClientCss.css">
       <DependentUpon>ClientCss.scss</DependentUpon>
     </Content>
@@ -374,6 +443,20 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\fancybox\blank.gif" />
+    <Content Include="Content\fancybox\core.css" />
+    <Content Include="Content\fancybox\fancybox_buttons.png" />
+    <Content Include="Content\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\fancybox\fancybox_sprite.png" />
+    <Content Include="Content\fancybox\fullscreen.css" />
+    <Content Include="Content\fancybox\jquery.fancybox.css" />
+    <Content Include="Content\fancybox\jquery.fancybox.min.css" />
+    <Content Include="Content\fancybox\share.css" />
+    <Content Include="Content\fancybox\slideshow.css" />
+    <Content Include="Content\fancybox\thumbs.css" />
     <Content Include="Content\Font\css\all.css" />
     <Content Include="Content\Font\css\all.min.css" />
     <Content Include="Content\Font\css\brands.css" />
@@ -397,6 +480,9 @@
     <Content Include="Content\Font\webfonts\fa-light-300.svg" />
     <Content Include="Content\Font\webfonts\fa-regular-400.svg" />
     <Content Include="Content\Font\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\jquery.fancybox-buttons.css" />
+    <Content Include="Content\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\jquery.fancybox.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Slick\ajax-loader.gif" />
     <Content Include="Content\Slick\fonts\slick.svg" />
@@ -446,7 +532,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Banners\2020\09\17\132448003153167012.jpg" />
+    <Content Include="Images\Banners\2020\09\17\132448006314594935.jpg" />
     <Content Include="Images\ConfigSites\2020\09\17\132448056609088417.jpg" />
     <Content Include="Images\ConfigSites\2020\09\17\132448056612589044.jpg" />
     <Content Include="Images\ConfigSites\2020\09\17\132448057319269059.jpg" />
@@ -465,12 +551,17 @@
     <Content Include="Images\Icon-groups\Phone-icon.svg" />
     <Content Include="Images\Icon-groups\tw-white.svg" />
     <Content Include="Images\Icon-groups\yt-white.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 200.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 201.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 202.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 203.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 204.svg" />
-    <Content Include="Images\LibraryImages\Rectangle 207.svg" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694063961886.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694154898897.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694218867520.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694359172192.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694461837810.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694565809411.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694672354688.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694890590621.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449694997095731.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449695234960368.png" />
+    <Content Include="Images\LibraryImages\2020\09\19\132449695296445873.png" />
     <Content Include="Images\Partner\Dulux.svg" />
     <Content Include="Images\Partner\jotun-logo-vector 1.svg" />
     <Content Include="Images\Partner\KOVA.svg" />
@@ -478,15 +569,194 @@
     <Content Include="Images\Partner\MyKolor-logo.svg" />
     <Content Include="Images\Partner\NIPPON_PAINT.svg" />
     <Content Include="Images\Partner\SPEC.svg" />
+    <Content Include="Images\Posts\2020\09\18\132448733941305224.jpg" />
+    <Content Include="Images\Posts\2020\09\18\132448738891840826.jpg" />
+    <Content Include="Images\Posts\2020\09\18\132448739021324488.jpg" />
+    <Content Include="Images\Posts\2020\09\18\132448739178464171.jpg" />
     <Content Include="Images\Post\Rectangle 38.svg" />
+    <Content Include="Images\Products\2020\09\19\132449567300033466.png" />
+    <Content Include="Images\Products\2020\09\19\132449567300382558.png" />
+    <Content Include="Images\Products\2020\09\19\132449567300532116.png" />
+    <Content Include="Images\Products\2020\09\19\132449567300631859.png" />
+    <Content Include="Images\Products\2020\09\19\132449567300761503.png" />
+    <Content Include="Images\Products\2020\09\19\132449568489654138.png" />
+    <Content Include="Images\Products\2020\09\19\132449568490631521.png" />
+    <Content Include="Images\Products\2020\09\19\132449568490791092.png" />
+    <Content Include="Images\Products\2020\09\19\132449568490890807.png" />
+    <Content Include="Images\Products\2020\09\19\132449568491289756.png" />
+    <Content Include="Images\Products\2020\09\19\132449568854396596.png" />
+    <Content Include="Images\Products\2020\09\19\132449568854935143.png" />
+    <Content Include="Images\Products\2020\09\19\132449568855044874.png" />
+    <Content Include="Images\Products\2020\09\19\132449568855144581.png" />
+    <Content Include="Images\Products\2020\09\19\132449568855603357.png" />
+    <Content Include="Images\Products\2020\09\19\132449569069032429.png" />
+    <Content Include="Images\Products\2020\09\19\132449569069531093.png" />
+    <Content Include="Images\Products\2020\09\19\132449569069670720.png" />
+    <Content Include="Images\Products\2020\09\19\132449569070129488.png" />
+    <Content Include="Images\Products\2020\09\19\132449569070279095.png" />
+    <Content Include="Images\Products\2020\09\19\132449585145545617.png" />
+    <Content Include="Images\Products\2020\09\19\132449585145775005.png" />
+    <Content Include="Images\Products\2020\09\19\132449585145874754.png" />
+    <Content Include="Images\Products\2020\09\19\132449585145994412.png" />
+    <Content Include="Images\Products\2020\09\19\132449585146134039.png" />
+    <Content Include="Images\Products\2020\09\19\132449585564060134.png" />
+    <Content Include="Images\Products\2020\09\19\132449585564249378.png" />
+    <Content Include="Images\Products\2020\09\19\132449585564359078.png" />
+    <Content Include="Images\Products\2020\09\19\132449585564469039.png" />
+    <Content Include="Images\Products\2020\09\19\132449585564548575.png" />
+    <Content Include="Images\Products\2020\09\19\132449586427587742.png" />
+    <Content Include="Images\Products\2020\09\19\132449586427787324.png" />
+    <Content Include="Images\Products\2020\09\19\132449586428415397.png" />
+    <Content Include="Images\Products\2020\09\19\132449586428594914.png" />
+    <Content Include="Images\Products\2020\09\19\132449586428764458.png" />
+    <Content Include="Images\Products\2020\09\19\132449586630495316.png" />
+    <Content Include="Images\Products\2020\09\19\132449586631133547.png" />
+    <Content Include="Images\Products\2020\09\19\132449586631253227.png" />
+    <Content Include="Images\Products\2020\09\19\132449586631392923.png" />
+    <Content Include="Images\Products\2020\09\19\132449586631572379.png" />
+    <Content Include="Images\Products\2020\09\19\132449586866882976.png" />
+    <Content Include="Images\Products\2020\09\19\132449586867132291.png" />
+    <Content Include="Images\Products\2020\09\19\132449586867281844.png" />
+    <Content Include="Images\Products\2020\09\19\132449586867431468.png" />
+    <Content Include="Images\Products\2020\09\19\132449586867870270.png" />
+    <Content Include="Images\Products\2020\09\19\132449589881396689.png" />
+    <Content Include="Images\Products\2020\09\19\132449589881665949.png" />
+    <Content Include="Images\Products\2020\09\19\132449589881875379.png" />
+    <Content Include="Images\Products\2020\09\19\132449589882633349.png" />
+    <Content Include="Images\Products\2020\09\19\132449589882802895.png" />
+    <Content Include="Images\Products\2020\09\19\132449590310219531.png" />
+    <Content Include="Images\Products\2020\09\19\132449590310458899.png" />
+    <Content Include="Images\Products\2020\09\19\132449590310608502.png" />
+    <Content Include="Images\Products\2020\09\19\132449590310748133.png" />
+    <Content Include="Images\Products\2020\09\19\132449590310867798.png" />
+    <Content Include="Images\Products\2020\09\19\132449590615626582.png" />
+    <Content Include="Images\Products\2020\09\19\132449590615826044.png" />
+    <Content Include="Images\Products\2020\09\19\132449590615975644.png" />
+    <Content Include="Images\Products\2020\09\19\132449590616075376.png" />
+    <Content Include="Images\Products\2020\09\19\132449590616205047.png" />
+    <Content Include="Images\Products\2020\09\19\132449590816030528.png" />
+    <Content Include="Images\Products\2020\09\19\132449590816229953.png" />
+    <Content Include="Images\Products\2020\09\19\132449590816359606.png" />
+    <Content Include="Images\Products\2020\09\19\132449590816509213.png" />
+    <Content Include="Images\Products\2020\09\19\132449590816678761.png" />
+    <Content Include="Images\Products\2020\09\19\132449591074010399.png" />
+    <Content Include="Images\Products\2020\09\19\132449591074249760.png" />
+    <Content Include="Images\Products\2020\09\19\132449591074409354.png" />
+    <Content Include="Images\Products\2020\09\19\132449591074907971.png" />
+    <Content Include="Images\Products\2020\09\19\132449591075047604.png" />
+    <Content Include="Images\Products\2020\09\19\132449591326265832.png" />
+    <Content Include="Images\Products\2020\09\19\132449591326475093.png" />
+    <Content Include="Images\Products\2020\09\19\132449591326953737.png" />
+    <Content Include="Images\Products\2020\09\19\132449591327073414.png" />
+    <Content Include="Images\Products\2020\09\19\132449591327203094.png" />
+    <Content Include="Images\Products\2020\09\19\132449591547163641.png" />
+    <Content Include="Images\Products\2020\09\19\132449591547722104.png" />
+    <Content Include="Images\Products\2020\09\19\132449591547851759.png" />
+    <Content Include="Images\Products\2020\09\19\132449591547971439.png" />
+    <Content Include="Images\Products\2020\09\19\132449591548121031.png" />
+    <Content Include="Images\Products\2020\09\19\132449592534971319.png" />
+    <Content Include="Images\Products\2020\09\19\132449592535190763.png" />
+    <Content Include="Images\Products\2020\09\19\132449592535340357.png" />
+    <Content Include="Images\Products\2020\09\19\132449592535888912.png" />
+    <Content Include="Images\Products\2020\09\19\132449592535988967.png" />
+    <Content Include="Images\Products\2020\09\19\132449592715538316.png" />
+    <Content Include="Images\Products\2020\09\19\132449592715717824.png" />
+    <Content Include="Images\Products\2020\09\19\132449592716196541.png" />
+    <Content Include="Images\Products\2020\09\19\132449592716326241.png" />
+    <Content Include="Images\Products\2020\09\19\132449592716425922.png" />
+    <Content Include="Images\Products\2020\09\19\132449592882112717.png" />
+    <Content Include="Images\Products\2020\09\19\132449592882411950.png" />
+    <Content Include="Images\Products\2020\09\19\132449592882581503.png" />
+    <Content Include="Images\Products\2020\09\19\132449592882701127.png" />
+    <Content Include="Images\Products\2020\09\19\132449592882830784.png" />
+    <Content Include="Images\Products\2020\09\19\132449593271322404.png" />
+    <Content Include="Images\Products\2020\09\19\132449593271551658.png" />
+    <Content Include="Images\Products\2020\09\19\132449593271741144.png" />
+    <Content Include="Images\Products\2020\09\19\132449593271900729.png" />
+    <Content Include="Images\Products\2020\09\19\132449593272479187.png" />
+    <Content Include="Images\Products\2020\09\19\132449596606584339.png" />
+    <Content Include="Images\Products\2020\09\19\132449596606823705.png" />
+    <Content Include="Images\Products\2020\09\19\132449596607092979.png" />
+    <Content Include="Images\Products\2020\09\19\132449596607262524.png" />
+    <Content Include="Images\Products\2020\09\19\132449596610753188.png" />
+    <Content Include="Images\Products\2020\09\19\132449596737384458.png" />
+    <Content Include="Images\Products\2020\09\19\132449596737583911.png" />
+    <Content Include="Images\Products\2020\09\19\132449596737723789.png" />
+    <Content Include="Images\Products\2020\09\19\132449596738272087.png" />
+    <Content Include="Images\Products\2020\09\19\132449596738371816.png" />
+    <Content Include="Images\Products\2020\09\19\132449596995095313.png" />
+    <Content Include="Images\Products\2020\09\19\132449596995304497.png" />
+    <Content Include="Images\Products\2020\09\19\132449596996092718.png" />
+    <Content Include="Images\Products\2020\09\19\132449596996222165.png" />
+    <Content Include="Images\Products\2020\09\19\132449596996322029.png" />
+    <Content Include="Images\Products\2020\09\19\132449597127102189.png" />
+    <Content Include="Images\Products\2020\09\19\132449597127770143.png" />
+    <Content Include="Images\Products\2020\09\19\132449597127919765.png" />
+    <Content Include="Images\Products\2020\09\19\132449597128069343.png" />
+    <Content Include="Images\Products\2020\09\19\132449597128189035.png" />
+    <Content Include="Images\Products\2020\09\19\132449597437112626.png" />
+    <Content Include="Images\Products\2020\09\19\132449597437342027.png" />
+    <Content Include="Images\Products\2020\09\19\132449597437481639.png" />
+    <Content Include="Images\Products\2020\09\19\132449597437641228.png" />
+    <Content Include="Images\Products\2020\09\19\132449597438109962.png" />
+    <Content Include="Images\Products\2020\09\19\132449597640937396.png" />
+    <Content Include="Images\Products\2020\09\19\132449597641166804.png" />
+    <Content Include="Images\Products\2020\09\19\132449597641316377.png" />
+    <Content Include="Images\Products\2020\09\19\132449597641795459.png" />
+    <Content Include="Images\Products\2020\09\19\132449597641924752.png" />
+    <Content Include="Images\Products\2020\09\19\132449597839775522.png" />
+    <Content Include="Images\Products\2020\09\19\132449597840004878.png" />
+    <Content Include="Images\Products\2020\09\19\132449597840413782.png" />
+    <Content Include="Images\Products\2020\09\19\132449597840533456.png" />
+    <Content Include="Images\Products\2020\09\19\132449597840683064.png" />
+    <Content Include="Images\Products\2020\09\19\132449597989066146.png" />
+    <Content Include="Images\Products\2020\09\19\132449597989564820.png" />
+    <Content Include="Images\Products\2020\09\19\132449597989714398.png" />
+    <Content Include="Images\Products\2020\09\19\132449597989883951.png" />
+    <Content Include="Images\Products\2020\09\19\132449597990083443.png" />
+    <Content Include="Images\Products\2020\09\19\132449598213196570.png" />
+    <Content Include="Images\Products\2020\09\19\132449598213485847.png" />
+    <Content Include="Images\Products\2020\09\19\132449598213605521.png" />
+    <Content Include="Images\Products\2020\09\19\132449598213725158.png" />
+    <Content Include="Images\Products\2020\09\19\132449598214114119.png" />
+    <Content Include="Images\Products\2020\09\19\132449598375282987.png" />
+    <Content Include="Images\Products\2020\09\19\132449598375542291.png" />
+    <Content Include="Images\Products\2020\09\19\132449598375751727.png" />
+    <Content Include="Images\Products\2020\09\19\132449598376380051.png" />
+    <Content Include="Images\Products\2020\09\19\132449598376629376.png" />
+    <Content Include="Images\Products\2020\09\19\132449598560467606.png" />
+    <Content Include="Images\Products\2020\09\19\132449598560746881.png" />
+    <Content Include="Images\Products\2020\09\19\132449598561584612.png" />
+    <Content Include="Images\Products\2020\09\19\132449598561704301.png" />
+    <Content Include="Images\Products\2020\09\19\132449598561814006.png" />
+    <Content Include="Images\Products\2020\09\19\132449611096487085.png" />
+    <Content Include="Images\Products\2020\09\19\132449611096876045.png" />
+    <Content Include="Images\Products\2020\09\19\132449611097025638.png" />
+    <Content Include="Images\Products\2020\09\19\132449611097175244.png" />
+    <Content Include="Images\Products\2020\09\19\132449611100695817.png" />
     <Content Include="Images\Product\1.svg" />
     <Content Include="Images\Product\Rectangle 72 %281%29.svg" />
     <Content Include="Images\Product\Rectangle 72 %282%29.svg" />
     <Content Include="Images\Product\Rectangle 72.svg" />
+    <Content Include="Images\TradeMarks\2020\09\18\132448859531946379.jpg" />
+    <Content Include="Images\TradeMarks\2020\09\18\132448865503234802.jpg" />
+    <Content Include="Images\TradeMarks\2020\09\18\132448865953267308.jpg" />
+    <Content Include="Images\TradeMarks\2020\09\18\132448866202291841.jpg" />
+    <Content Include="Images\TradeMarks\2020\09\19\132449595262040813.png" />
+    <Content Include="Images\TradeMarks\2020\09\19\132449596338755395.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449644893921879.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449645979063274.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449646092649424.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449646256820266.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449646448986323.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449646503001709.png" />
+    <Content Include="Images\TypicalCustomers\2020\09\19\132449646685942416.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\build-config.js" />
     <Content Include="Scripts\ckeditor\ckeditor.js" />
@@ -1343,6 +1613,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.cookie-1.4.1.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.fancybox.js" />
+    <Content Include="Scripts\jquery.fancybox.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1432,15 +1704,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\ActiveProductForCategoryPartial.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\FooterPartial.cshtml" />
     <Content Include="Views\Home\HeaderPartial.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ListPost.cshtml" />
     <Content Include="Views\Home\ListProduct.cshtml" />
-    <Content Include="Views\Home\ListProdutPartial.cshtml" />
     <Content Include="Views\Home\MenuMobilePartial.cshtml" />
     <Content Include="Views\Home\MenuXLPartial.cshtml" />
     <Content Include="Views\Home\ProductCardPartial.cshtml" />
@@ -1473,9 +1742,47 @@
     <Content Include="Views\Admin\AddOrUpdateFeedBack.cshtml" />
     <Content Include="Views\Admin\ListPost.cshtml" />
     <Content Include="Views\Admin\AddOrUpdatePost.cshtml" />
+    <Content Include="Views\Admin\ListPostCategory.cshtml" />
+    <Content Include="Views\Admin\AddOrUpDatePostCategory.cshtml" />
+    <Content Include="Views\Admin\ListProductCategory.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateProductCategory.cshtml" />
+    <Content Include="Views\Admin\ListTradeMark.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateTradeMark.cshtml" />
+    <Content Include="Views\Admin\ListProduct.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateProduct.cshtml" />
+    <Content Include="Views\Admin\DeleteImageProduct.cshtml" />
+    <Content Include="Views\Admin\ListTypicalCustomer.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateTypicalCustomer.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\LoginAction.cshtml" />
+    <Content Include="Views\Admin\ListUserRole.cshtml" />
+    <Content Include="Views\Admin\ListAlbumImage.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateItemForAlbum.cshtml" />
+    <Content Include="Views\Admin\ListContact.cshtml" />
+    <Content Include="Views\Admin\ContactDetail.cshtml" />
+    <Content Include="Views\Admin\MemberDetail.cshtml" />
+    <Content Include="Views\Admin\ListMember.cshtml" />
+    <Content Include="Views\Admin\ListOrder.cshtml" />
+    <Content Include="Views\Admin\OrderDetail.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdateUserRole.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\LasterPost.cshtml" />
+    <Content Include="Views\Admin\ListPostCategoryParent.cshtml" />
+    <Content Include="Views\Admin\AddOrUpdatePostCategoryParent.cshtml" />
+    <Content Include="Views\Home\ProductSearch.cshtml" />
+    <Content Include="Views\Shared\_ProductLayout.cshtml" />
+    <Content Include="Views\Home\ContactView.cshtml" />
+    <Content Include="Views\Home\PaintPrice.cshtml" />
+    <Content Include="Views\Home\PaymentView.cshtml" />
+    <Content Include="Views\Home\ServiceView.cshtml" />
+    <Content Include="Views\Home\OrderProduct.cshtml" />
+    <Content Include="Views\Home\PostDetail.cshtml" />
+    <Content Include="Views\Home\TypicalCustomerView.cshtml" />
+    <Content Include="Views\Home\AlbumImageView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Products\2020\09\18\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -1503,6 +1810,48 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009170934074_RemoveTable.resx">
       <DependentUpon>202009170934074_RemoveTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009180401180_updateDatabaseForVirtual.resx">
+      <DependentUpon>202009180401180_updateDatabaseForVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009180416363_updateForTableTradeMark.resx">
+      <DependentUpon>202009180416363_updateForTableTradeMark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009180839413_updatefortableProduct.resx">
+      <DependentUpon>202009180839413_updatefortableProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009190248579_updateTradeMarkForProduct.resx">
+      <DependentUpon>202009190248579_updateTradeMarkForProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009190403582_AddTableToDatabase.resx">
+      <DependentUpon>202009190403582_AddTableToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009190406286_UpdateTableContact.resx">
+      <DependentUpon>202009190406286_UpdateTableContact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009190433474_UpdateTableTypicalCustomer.resx">
+      <DependentUpon>202009190433474_UpdateTableTypicalCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009190608286_UpdatedTableLibraryImages.resx">
+      <DependentUpon>202009190608286_UpdatedTableLibraryImages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200227431_addtablePostcategoryParent.resx">
+      <DependentUpon>202009200227431_addtablePostcategoryParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200718023_updatatableConfig.resx">
+      <DependentUpon>202009200718023_updatatableConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200836306_tableReceiveEmail.resx">
+      <DependentUpon>202009200836306_tableReceiveEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009200922163_updataTableOrder.resx">
+      <DependentUpon>202009200922163_updataTableOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201017352_updataTableOrder2.resx">
+      <DependentUpon>202009201017352_updataTableOrder2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009201019130_updataTableOrder3.resx">
+      <DependentUpon>202009201019130_updataTableOrder3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

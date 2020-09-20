@@ -1,0 +1,23 @@
+﻿@using WebPanit.Models;
+@model Post
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+<div class="breadcrumb table-paint">
+    <a href="@Url.Action("Index","Home")" class="mb-2"><i class="fas fa-home"></i></a>
+    <a href="@Url.Action("ListPost","Home",new {PostCategoryId=Model.PostCategory.ID,name=Html.ConvertToUnSign(Model.PostCategory.CategoryName) })"> @Model.PostCategory.CategoryName</a>
+    <span class="mb-2">@Model.Subject.Substring(0, 20) ...</span>
+</div>
+<div class="post-detai mt-3">
+    <img src="~/Images/Posts/@Model.Image" class="img-fluid mb-3" />
+    <div class="information">
+        <div class="description mb-3">
+            @Model.Subject
+        </div>
+        <div class="content">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+﻿@using WebPanit.Models;
+@model IEnumerable<PostCategoryParent>
+@{
+    ViewBag.Title = "Danh sách danh mục gốc";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Danh sách danh mục gốc của bài viết</h2>
+
+<div class="mb-3">
+    <a href="@Url.Action("AddOrUpdatePostCategoryParent","Admin")" type="button" class="btn btn-info">
+        <i class="far fa-plus mr-1"></i> Thêm mới
+    </a>
+</div>
+<table class="table table-bordered table-striped mt-4 mb-4 p-3 bg-white border shadow-sm lh-sm">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên thể danh mục gốc</th>
+            <th>Hoạt động</th> 
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody class="table-light">
+        @foreach (PostCategoryParent parent in Model)
+        {
+            <tr id="row-@parent.Id">
+                <td>@parent.DisplayOrder</td>
+                <td>@parent.Name</td> 
+                <td>
+                    <input type="checkbox" onclick="CheckActive(@parent.Id)" checked="@parent.Active"/>
+                </td>
+                <td>
+                    <a href="@Url.Action("AddOrUpdatePostCategoryParent", "Admin", new {@id = parent.Id})" class="btn btn-success" title="Sửa"><i class="fal fa-edit"></i></a>
+                    <button class="btn btn-warning" onclick="DeletePostCategoryParent(@parent.Id)" title="Xóa"><i class="fal fa-trash-alt"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        function DeletePostCategoryParent(parentID) {
+            if (confirm("Bạn có chắc muốn xóa thể loại bài viết đã chọn không?")) {
+                $.ajax({
+                    type: "Post",
+                    url: "/Admin/DeletePostCategoryParent",
+                    data: { id: parentID },
+                    success: function (res) {
+                        if (res) {
+                            alert("Xóa thành công!");
+                            $("#row-" + parentID).fadeOut();
+                        }
+                        else {
+                            alert("Bị lỗi!");
+                        }
+                    }
+                })
+            }
+        }
+        function CheckActive(parentID) {
+            $.ajax({
+                type: "Post",
+                url: "/Admin/CheckActivePostCategoryParent",
+                data: { id: parentID }
+            })
+        }
+    </script>
+}
+

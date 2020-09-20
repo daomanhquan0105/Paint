@@ -1,71 +1,52 @@
-﻿
+﻿@using WebPanit.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Post>
 @{
-    ViewBag.Title = "ListPost";
+    ViewBag.Title = "Danh sách tin tức";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
- 
-<div class="list-product">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-3 d-none d-lg-block">
-                @Html.Action("MenuXLPartial", "Home")
-            </div>
 
-            <div class="col-12 col-lg-9">
-                <div class="breadcrumb table-paint">
-                    <a href="@Url.Action("Index","Home")" class="mb-2"><i class="fas fa-home"></i></a>
-                    <span class="mb-2">Bảng màu sơn</span>
-                </div>
-                <div class="row text-center List-post">
-                    @for (int i = 0; i < 10; i++)
-                    {
-                        <div class="col-6 col-sm-3 col-md-4 mb-4 text-left">
-                            <div class="card">
-                                <a href="#" class="image"><img src="~/Images/Post/Rectangle 38.svg" class="card-img-top" /></a>
-                                <div class="card-body">
-                                    <div class="subject mb-2">
-                                        <a href="#">
-                                            Lorem ipsum dolor sit amet consec tetuer adipiscing
-                                        </a>
-                                    </div>
-                                    <div class="create-date mb-3">
-                                        <i class="far fa-calendar-alt mr-2"></i>  September 14, 2020
-                                    </div>
-                                    <div class="content">
-                                        Lorem Ipsum is simply dummy text of the printing and typeset ting industry. Lorem Ipsum has been ..
-                                    </div>
-                                </div>
-                            </div>
+<div class="breadcrumb table-paint">
+    <a href="@Url.Action("Index","Home")" class="mb-2"><i class="fas fa-home"></i></a>
+    <a href="#"> Dịch vụ </a>
+    <span class="mb-2">Bảng màu sơn</span>
+</div>
+@if (Model.Count() > 0)
+{
+    <div class="row List-post">
+        @foreach (Post post in Model)
+        {
+            <div class="col-6 col-sm-3 col-md-4 mb-4 text-left">
+                <div class="card">
+                    <a href="@Url.Action("PostDetail","Home",new { id=post.Id,name=Html.ConvertToUnSign(post.Subject) })" class="image">
+                        <img src="~/Images/Posts/@post.Image" class="card-img-top" />
+                    </a>
+                    <div class="card-body">
+                        <div class="subject mb-2">
+                            <a href="@Url.Action("PostDetail","Home",new { id=post.Id,name=Html.ConvertToUnSign(post.Subject) })">
+                                Lorem ipsum dolor sit amet consec tetuer adipiscing
+                            </a>
                         </div>
-                    }
-                </div>
-            </div>
-        </div>
-
-        <div class="category-panit d-block d-lg-none">
-            <div class="title">
-                BÀI ĐĂNG GẦN ĐÂY
-            </div>
-            <hr />
-            <div class="row">
-                @for (int i = 0; i < 5; i++)
-                {
-                    <div class="col-6 col-md-4 col-lg mb-3">
-                        <div class="card">
-                            <img src="~/Images/Post/Rectangle 38.svg" class="card-img-top" />
-                            <div class="card-body">
-                                <div class="product-name">
-                                    <a href="#">Lorem ipsum dolor sit amet consectetuer adipiscing</a>
-                                </div>
-                                <div class="create-date">
-                                    <i class="far fa-calendar-alt mr-2"></i>  25/02/2020
-                                </div>
-                            </div>
+                        <div class="create-date mb-3">
+                            <i class="far fa-calendar-alt mr-2"></i>  @post.CreateDate.ToString("MMMM/dd/yyyy").Replace('/', ' ')
+                        </div>
+                        <div class="content">
+                            Lorem Ipsum is simply dummy text of the printing and typeset ting industry. Lorem Ipsum has been ..
                         </div>
                     </div>
-                }
+                </div>
             </div>
-
-        </div>
-
+        }
     </div>
-</div>
+    if (Model.PageCount > 1)
+    {
+        <div class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("ListPost", new { page }))
+        </div>
+    }
+}
+else
+{
+
+    <h2>Danh sách bài đăng đang được cập nhật vui lòng quay lại sau</h2>
+}

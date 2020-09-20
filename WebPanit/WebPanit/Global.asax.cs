@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebPanit.Models;
 
 namespace WebPanit
 {
@@ -16,6 +17,10 @@ namespace WebPanit
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            using (var db = new DataEntities())
+            {
+                Application["ConfigSite"] = db.ConfigSites.Where(x=>x.Active==true).FirstOrDefault();
+            }
         }
     }
 }

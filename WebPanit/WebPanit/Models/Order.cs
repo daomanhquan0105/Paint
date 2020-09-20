@@ -21,18 +21,22 @@ namespace WebPanit.Models
         [DisplayName("Thành tiền")]
         public decimal Price { get; set; }
 
+        [DisplayName("Số lượng mua"),UIHint("NumberBox"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương")]
+        public int Quantity { get; set; }
+
         [DisplayName("Ngày giao")]
         [Column(TypeName = "date"), UIHint("DateTimePicker")]
         public DateTime ShipDate { get; set; }
 
         [DisplayName("Tình trang?")]
         public bool Status { get; set; }
-
+        [DisplayName("Mã đơn hàng"),StringLength(50,ErrorMessage ="Tối đa 50 ký tự")]
+        public string OrderCode { get; set; }
         public bool Remove { get; set; }
         [ForeignKey("MemberID")]
-        public Member Member { get; set; }
+        public virtual Member Member { get; set; }
         [ForeignKey("ProductID")]
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
         public Order()
         {
             CreateDate = DateTime.Now;

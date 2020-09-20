@@ -1,5 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@using WebPanit.Models;
+@using WebPanit.ViewModel;
+@model HomeViewModel
+@{
+    ViewBag.Title = "Trang chủ";
+    int i = 1;
 }
 
 <div class="body">
@@ -9,56 +13,27 @@
                 @Html.Action("MenuXLPartial", "Home")
             </div>
             <div class="col-12 col-lg-9 pt-4">
-                <a href="#"><img src="~/Images/Banner/Rectangle 5.svg" class="img-fluid img-cover" /></a>
+                @if (Model.Banners.FirstOrDefault().Image != null)
+                {
+                    <a href="#"><img src="~/Images/Banners/@Model.Banners.FirstOrDefault().Image" class="img-fluid img-cover" /></a>
+                } 
             </div>
         </div>
         <div class="row partner no-gutter13">
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#"><img src="~/Images/Partner/Dulux.svg" class="img-fluid" /></a>
+            @foreach (TradeMark tradeMark in Model.TradeMarks.Take(6))
+            {
+                <div class="col-4 col-md-3 col-lg-2 mb-3">
+                    <div class="card">
+                        <a href="@Url.Action("ListProduct","Home",new { tradeMarkID=tradeMark.Id,name=Html.ConvertToUnSign(tradeMark.Name) })"><img src="~/Images/TradeMarks/@tradeMark.Avatar" class="img-fluid" /></a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#"><img src="~/Images/Partner/jotun-logo-vector 1.svg" class="img-fluid" /></a>
-                </div>
-            </div>
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#"><img src="~/Images/Partner/logo-fotter 1.svg" class="img-fluid" /></a>
-                </div>
-            </div>
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#"><img src="~/Images/Partner/MyKolor-logo.svg" class="img-fluid"/></a>
-                </div>
-            </div>
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#">
-                        <img src="~/Images/Partner/NIPPON_PAINT.svg" class="img-fluid" />
-                    </a>
-                </div>
-            </div>
-            <div class="col-4 col-md-3 col-lg-2 mb-3">
-                <div class="card">
-                    <a href="#"><img src="~/Images/Partner/KOVA.svg"class="img-fluid"/></a>
-                </div>
-            </div>
+            } 
         </div>
 
-        @*@Html.Partial("")*@
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
-
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
-
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
-
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
-
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
-
-        @Html.Action("ActiveProductForCategoryPartial", "Home")
+        @foreach(TradeMark tradeMark1 in Model.TradeMarks)
+        {
+            @Html.Partial("ActiveProductForCategoryPartial", tradeMark1)
+        } 
 
         <div class="library-img text-center">
             <div class="title">
@@ -68,84 +43,74 @@
                 <i class="fas fa-ellipsis-h"></i>
             </div>
             <div class="row no-gutter2 parent justify-content-center">
-                @for (int i = 0; i < 8; i++)
+                @foreach (LibraryImage image in Model.LibraryImages)
                 {
                     <div class="col-6 col-md-4 col-lg-3 mb-1">
                         <div class="card">
-                            <a href="#" class="image"><img src="~/Images/LibraryImages/Rectangle 200.svg" class="card-img-top" /></a>
+                            <a href="javascript:;" class="image"><img src="~/Images/LibraryImages/@image.Avatar" class="card-img-top" /></a>
                         </div>
                     </div>
-                }
+                } 
             </div>
-            <a href="#" class="btn read-all">
+            <a href="@Url.Action("AlbumImageView","Home")" class="btn read-all">
                 Xem tất cả
             </a>
         </div>
     </div>
 </div>
 <div class="feed-back">
+    <div class="title">
+        Khách hàng nói về chúng tôi
+    </div>
+    <div class="icon">
+        <i class="fas fa-ellipsis-h"></i>
+    </div>
     <div id="carouselExampleControls" class="carousel slide col-lg-6" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active text-center">
-                <div class="title">
-                    Khách hàng nói về chúng tôi
-                </div>
-                <div class="icon">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-                <div class="">
-                    <img src="~/Images/Customers/1.svg" class="img-fluid" alt="...">
-                </div>
-                <div class="content">
-                    Nếu bạn đang tìm kiếm một nhà in đáng tin cậy sẽ lấy lại cho bạn ngay lập tức thì Printshop là con đường để đi. Cho dù đó là giao hàng gấp, ước tính nhanh hay mẫu giấy, họ luôn ở đó với 100% nhiệt tình để hoàn thành công việc.
-                </div>
-                <div class="name">
-                    Susan
-                </div>
-                <div class="subject">
-                    Thiết kế web
-                </div>
-            </div>
-            <div class="carousel-item text-center">
-                <div class="title">
-                    Khách hàng nói về chúng tôi
-                </div>
-                <div class="icon">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-                <div class="">
-                    <img src="~/Images/Customers/1.svg" class="img-fluid" alt="...">
-                </div>
-                <div class="content">
-                    Nếu bạn đang tìm kiếm một nhà in đáng tin cậy sẽ lấy lại cho bạn ngay lập tức thì Printshop là con đường để đi. Cho dù đó là giao hàng gấp, ước tính nhanh hay mẫu giấy, họ luôn ở đó với 100% nhiệt tình để hoàn thành công việc.
-                </div>
-                <div class="name">
-                    Susan
-                </div>
-                <div class="subject">
-                    Thiết kế web
-                </div>
-            </div>
-            <div class="carousel-item text-center">
-                <div class="title">
-                    Khách hàng nói về chúng tôi
-                </div>
-                <div class="icon">
-                    <i class="fas fa-ellipsis-h"></i>
-                </div>
-                <div class="">
-                    <img src="~/Images/Customers/1.svg" class="img-fluid" alt="...">
-                </div>
-                <div class="content">
-                    Nếu bạn đang tìm kiếm một nhà in đáng tin cậy sẽ lấy lại cho bạn ngay lập tức thì Printshop là con đường để đi. Cho dù đó là giao hàng gấp, ước tính nhanh hay mẫu giấy, họ luôn ở đó với 100% nhiệt tình để hoàn thành công việc.
-                </div>
-                <div class="name">
-                    Susan
-                </div>
-                <div class="subject">
-                    Thiết kế web
-                </div>
-            </div>
+        <div class="carousel-inner"> 
+            @foreach (FeedBack feedBack in Model.FeedBacks)
+            {
+                if (i == 1)
+                {
+                    <div class="carousel-item active text-center"> 
+                        <div class="">
+                            <img src="~/Images/FeedBacks/@feedBack.Avatar" class="img-fluid" alt="...">
+                        </div>
+                        <div class="content">
+                            @for (int j = 0; j < feedBack.Description.Split('.').Length - 1; j++)
+                            {
+                                <p>@feedBack.Description.Split('.')[j] .</p>
+                            }
+                        </div>
+                        <div class="name">
+                            @feedBack.FullNname
+                        </div>
+                        <div class="subject">
+                            Thiết kế web
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="carousel-item text-center">
+                        <div class="">
+                            <img src="~/Images/FeedBacks/@feedBack.Avatar" class="img-fluid" alt="...">
+                        </div>
+                        <div class="content">
+                            @for (int j = 0; j < feedBack.Description.Split('.').Length - 1; j++)
+                            {
+                                <p>@feedBack.Description.Split('.')[j] .</p>
+                            }
+                        </div>
+                        <div class="name">
+                            @feedBack.FullNname
+                        </div>
+                        <div class="subject">
+                            Thiết kế web
+                        </div>
+                    </div>
+                }
+                i++;
+            }
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <i class="fas fa-quote-left"></i>
@@ -156,18 +121,8 @@
     </div>
 </div>
 
-
-
 <style>
     .body .menu .category-panit {
         display: none !important;
     }
 </style>
-
-@*@section scripts{
-    <script>
-        var count = $("#accordionExample li");
-        var click_collapse = $("#accordionExample li a"); 
-    </script>    
-    
-}*@

@@ -79,7 +79,9 @@ $color-icon: linear-gradient(90deg, #00D29F 0%, #009CC7 12.5%, #2E6CBA 29.17%, #
 $color-backgorund-product: #F5F5F5;
 $color-tab: #858585;
 
-
+.form-control{
+    max-width:none;
+}
 @media(min-width:1300px){
     .container {
         max-width: 1200px;
@@ -247,11 +249,13 @@ header {
             .input-group-prepend {
                 width: 30%;
 
-                .dropdown-toggle {
+                select {
                     text-align: left;
                     border-right: 1px solid $color-gray-50 !important;
-                    z-index: 10;
-
+                    z-index: 10; 
+                    font-size: 1rem;
+                    transition: 0.5s;
+                    border-radius:0;
                     &:after {
                         position: absolute;
                         right: 5%;
@@ -260,7 +264,7 @@ header {
                 }
             }
 
-            .dropdown-toggle,
+            select,
             .form-control,
             .btn.btn-search {
                 font-family: Roboto;
@@ -274,6 +278,13 @@ header {
                 &:focus {
                     box-shadow: none;
                 }
+                i{
+                    padding:40% 0;
+                }
+            }
+
+            .form-control {
+                max-width: none;
             }
         }
 
@@ -291,8 +302,8 @@ header {
             }
         }
 
-        a.menu-mobile{
-            color:$color-black-max;
+        a.menu-mobile {
+            color: $color-black-max;
         }
     }
 }
@@ -409,7 +420,6 @@ ul.accordion {
                 position: relative;
                 outline: none;
                 font-size: 1.4rem;
-                transition: 0.5s;
 
                 &:before {
                     position: absolute;
@@ -479,7 +489,7 @@ ul.accordion {
             content: '';
             position: absolute;
             border-top: 2px solid $color-yellow-bold;
-            bottom: -.8rem;
+            bottom: -1rem;
             width: 10%;
             z-index: 5;
             left: 0;
@@ -497,6 +507,13 @@ ul.accordion {
                 right: 0;
                 bottom: 0;
             }
+        }
+    }
+    .media{
+        img{
+            width:5rem; 
+            height:auto;
+            object-fit:contain;
         }
     }
 }
@@ -557,38 +574,40 @@ ul.accordion {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    padding-top: 4.375rem;
+    padding-bottom: 6.125rem;
+
+    .title {
+        font-family: Francisco-300;
+        font-size: 2.25rem;
+        line-height: 2.63rem;
+        color: $color-black-max;
+        text-align: center;
+        margin-bottom: .75rem;
+    }
+
+    .icon {
+        margin-bottom: 2rem;
+        font-size: 2.25rem;
+        background: $color-icon;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        max-width: 3rem;
+        margin-left: auto;
+        text-align: center;
+        margin-right: auto;
+    }
 
     #carouselExampleControls {
-        padding-top: 4.375rem;
-        padding-bottom: 6.125rem;
-        max-width: 45.3%;
+        max-width: 44.3%;
         margin: 0 auto;
 
         .carousel-inner {
-            .title {
-                font-family: Francisco-300;
-                font-size: 2.25rem;
-                line-height: 2.63rem;
-                color: $color-black-max;
-                margin-bottom: .75rem;
-            }
-
-            .icon {
-                margin-bottom: 2rem;
-                font-size: 2.25rem; 
-                background: $color-icon;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                max-width: 3rem;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
             img {
-                width: 5.875rem;
-                height: 5.875rem;
+                width: 7rem;
+                height: 7rem;
                 border-radius: 50%;
-                object-fit:contain;
+                object-fit: cover;
             }
 
             .content {
@@ -858,10 +877,10 @@ ul.accordion {
 
 /* select color */
 .table-paint{
-    a{
-        padding:1rem 0.875rem;
-    }
     .card{
+        a{
+            padding:0.5rem 0;
+        }
         .card-body{
             position:relative;
             &:before{
@@ -1184,25 +1203,24 @@ ul.accordion {
         }
     }
 
-    .feed-back { 
+    .feed-back {
+        .title {
+            font-size: 2rem;
+            line-height: 2.4rem;
+            margin-bottom: .5rem;
+        }
+
+        .icon {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
 
         #carouselExampleControls {
             padding-top: 4.2rem;
             padding-bottom: 6rem;
             max-width: 50%; 
 
-            .title { 
-                font-size: 2rem;
-                line-height: 2.4rem; 
-                margin-bottom: .5rem;
-            }
-
-            .icon {
-                margin-bottom: 2rem;
-                font-size: 1.8rem; 
-            }
-             
-            .content {  
+            .content {
                 margin-top: 1.5rem;
                 margin-bottom: 2.4rem;
             }
@@ -1305,21 +1323,21 @@ ul.accordion {
         width: 60%;
     }
     .feed-back {
-        background-image:none;
+        background-image: none;
+
+        .title {
+            font-size: 1.6rem;
+            line-height: 2rem;
+        }
+
+        .icon {
+            margin-bottom: 1.75rem;
+        }
+
         #carouselExampleControls {
             padding-top: 4rem;
             padding-bottom: 4rem;
-            max-width: 100%;
-
-            .title {
-                font-size: 1.6rem;
-                line-height: 2rem; 
-            }
-
-            .icon {
-                margin-bottom: 1.75rem; 
-            }
-
+            max-width: 100%; 
             .content {
                 margin-top: 1.25rem;
                 margin-bottom: 1.8rem;

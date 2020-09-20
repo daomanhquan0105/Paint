@@ -1,13 +1,20 @@
-﻿@model WebPanit.Models.Post
+﻿@using WebPanit.Models;
+@model Post
 
 @{
-    ViewBag.Title = "AddOrUpdatePost";
+    ViewBag.Title = Model != null ? (Model.Id > 0 ? "Cập nhật bài viết" : "Thêm mới bài viết") : "Thêm mới bài viết";
+
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    IEnumerable<PostCategory> postCategories = ViewBag.Table_PostCategory;
 }
 
-<h2>AddOrUpdatePost</h2>
-
-<form action="@Url.Action("AddOrUpdatePost","Admin")" method="post" enctype="multipart/form-data">
+<h2 id="title"> </h2>
+<p>
+    <a href="@Url.Action("ListPost","Admin")" class="btn btn-outline-info">
+        Danh sách bài viết
+    </a>
+</p>
+<form action="@Url.Action("AddOrUpdatePost","Admin")" method="post" enctype="multipart/form-data" class="mt-3">
 
 
     @Html.AntiForgeryToken()
@@ -21,6 +28,12 @@
         @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "col-form-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Subject)
+        </div>
+    </div>
+    <div class="form-group row">
+        @Html.LabelFor(model => model.PostCategoryID, htmlAttributes: new { @class = "col-form-label col-md-2" })
+        <div class="col-md-10"> 
+            @Html.DropDownList("PostCategoryID", new SelectList(postCategories.OrderBy(x=>x.DisplayOrder), "ID","CategoryName"), "Chọn loại bài viết", new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group row">
@@ -40,16 +53,25 @@
     <div class="form-group row">
         @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "col-form-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Image)
+            <div id="LoadImages">
+                <input class="picture" type="file" name="picture" onchange="loadFile(event)" />
+            </div>
+            <div id="images-group">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        if (Model.Id > 0)
+                        {
+                            <div class="multiple-images-wrapper col-md-2">
+                                <img src="~/Images/Banners/@Model.Image" class="multipleImage img-thumbnail" />
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.CreateDate, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CreateDate)
-        </div>
-    </div>
+     
 
     <div class="form-group row">
         @Html.LabelFor(model => model.DisPlayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
@@ -76,13 +98,6 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.PostCategoryID, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PostCategoryID)
-            @Html.ValidationMessageFor(model => model.PostCategoryID, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
     <div class="form-group row">
         <button type="submit" id="btnSubmit" class="btn"></button>
@@ -93,12 +108,12 @@
 @section scripts{
     <script>
         if ($("#Id").val() > 0) {
-            $("#title").html("Cập nhật banner/slider");
+            $("#title").html("Cập nhật bài viết");
             $("#btnSubmit").html('<i class="far fa-pen-square mr-1"></i>Lưu thay đổi');
             $("#btnSubmit").addClass("btn-primary")
         }
         else {
-            $("#title").html("Thêm mới banner/slider");
+            $("#title").html("Thêm mới bài viết");
             $("#btnSubmit").html('<i class="far fa-plus mr-1"></i> Thêm mới');
             $("#btnSubmit").addClass("btn-success")
         }

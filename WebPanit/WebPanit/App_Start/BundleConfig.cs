@@ -27,10 +27,14 @@ namespace WebPanit
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/PagedList.css",
                       "~/Content/site.css"));
             bundles.Add(new StyleBundle("~/Content/admincss").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/adminCss.css"));
+                      "~/Content/adminCss.css",
+                      "~/Content/chosen.css",
+                      "~/Content/PagedList.css"
+                      ));
             bundles.Add(new StyleBundle("~/Content/Slick/css").Include(
                       "~/Content/Slick/slick.css"));
             bundles.Add(new StyleBundle("~/Content/Font/css/css").Include(

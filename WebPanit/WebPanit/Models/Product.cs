@@ -43,9 +43,14 @@ namespace WebPanit.Models
         [DisplayName("Miêu tả chi tiết"), UIHint("EditorBox"), Required(ErrorMessage = "Hãy miêu tả chi tiết cho sản phẩm")]
         [Column(TypeName = "ntext")]
         public string Detail { get; set; }
-        [DisplayName("Chính sách bảo hành"), UIHint("EditorBox")]
-        [Column(TypeName = "ntext")]
-        public string WarrantyPolicy { get; set; }
+
+        //[DisplayName("Chính sách bảo hành"), UIHint("EditorBox"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương")]
+        //[Column(TypeName = "ntext")]
+        //public string WarrantyPolicy { get; set; }
+
+        [DisplayName("Thời gian bảo hành"), UIHint("NumberBox"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương")]
+        [Required(ErrorMessage = "Hãy nhập thời gian bảo hành cho sản phẩm")]
+        public int Warranty { get; set; }
 
         [DisplayName("Ngày tạo"), UIHint("DateTimePicker")]
         [Column(TypeName = "date")]
@@ -53,14 +58,7 @@ namespace WebPanit.Models
 
         [DisplayName("Thứ tự hiển thị"), UIHint("NumberBox"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương")]
         [Required(ErrorMessage = "Hãy nhập thứ tự hiện thị cho sản phẩm")]
-        public int DisplayOrder { get; set; }
-
-        //[DisplayName("Nhà sản xuất")]
-        //[Required(ErrorMessage = "Chọn hãng sản xuất của sản phẩm")]
-        //public int SupplierID { get; set; }
-
-        //[Display(Name = "Xuất xứ"), StringLength(100, ErrorMessage = "Không được vượt quá 100 ký tự"), UIHint("TextBox")]
-        //public string Origin { get; set; } 
+        public int DisplayOrder { get; set; } 
 
         [DisplayName("Hiển thị")]
         public bool Active { get; set; }
@@ -68,10 +66,14 @@ namespace WebPanit.Models
         [DisplayName("Hiện trang chủ")]
         public bool FlagHome { get; set; }
         public int View { get; set; }
-
+        [Display(Name ="Danh mục sản phẩm")]
         public int ProductCategoryID { get; set; }
         [ForeignKey("ProductCategoryID")]
-        public ProductCategory ProductCategory { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
+        [Display(Name ="Nhãn hiệu sơn")]
+        public int? TradeMarkID { get; set; }
+        [ForeignKey("TradeMarkID")]
+        public virtual TradeMark TradeMark { get; set; }
         public Product()
         {
             CreateDate = DateTime.Now;

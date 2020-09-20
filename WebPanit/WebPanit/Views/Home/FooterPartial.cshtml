@@ -1,78 +1,89 @@
-﻿
+﻿@using WebPanit.Models;
+@model IEnumerable<PostCategoryParent>
+@{
+    var config = (ConfigSite)HttpContext.Current.Application["ConfigSite"];
+    int i = 1;
+}
 <div class="footer">
     <div class="footer-start ">
         <div class="container">
             <div class="title text-center">
                 Nhận thông tin của chúng tôi
             </div>
-            <div class="input-group text-center">
-                <input class="form-control" placeholder="NHẬP EMAIL CỦA BẠN" />
-                <button class="btn btn-post-email">
-                    NHẬP TIN
-                </button>
-            </div>
+            <form id="formSendEmail">
+                <div class="input-group text-center">
+                    <input class="form-control" name="Email" placeholder="NHẬP EMAIL CỦA BẠN" />
+                    <button type="button" onclick="SendEmail()" class="btn btn-post-email">
+                        NHẬP TIN
+                    </button> 
+                </div>
+            </form>
+            
         </div>
     </div>
     <div class="footer-end">
         <div class="container">
+            
             <div class="row">
                 <div class="col-7 col-md-4 information">
-                    <a href="#"><img src="~/Images/Icon-groups/Logo_bottom.svg" class="img-fluid" /></a>
+                    <a href="@Url.Action("Home","Index")">
+                        <img src="~/Images/ConfigSites/@config.LogoBottom" class="img-fluid" />
+                    </a>
                     <div class="support">
                         Gọi Dịch vụ khách hàng, chúng tôi hỗ trợ 24/7:<br />
-                        <div class="phone-number"><a href="#">0123-456-789</a></div>
+                        <div class="phone-number"><a href="#">@config.PhoneNumber</a></div>
                         Địa chỉ :<br />
-                        <div class="address"><a href="#">PO Box 1622 Vissaosang Phố Tây</a></div>
+                        <div class="address"><a href="#">@config.Address</a></div>
                         <div class="icon-group">
-                            <a href="#" class="mr-3 mr-lg-4"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="mr-3 mr-lg-4"><i class="fab fa-twitter "></i></a>
-                            <a href="#" class="mr-3 mr-lg-4"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="@config.Facebook" class="mr-3 mr-lg-4"><i class="fab fa-facebook-f"></i></a>
+                            <a href="@config.Twitter" class="mr-3 mr-lg-4"><i class="fab fa-twitter "></i></a>
+                            <a href="@config.Youtube" class="mr-3 mr-lg-4"><i class="fab fa-youtube"></i></a>
+                            <a href="@config.Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-5 col-md-2 service">
-                    <div class="title">
-                        VỀ CHÚNG TÔI
+                @foreach (PostCategoryParent parent in Model)
+                {
+                    <div class="col-5 col-md-2 service">
+                        <div class="title">
+                            @parent.Name
+                        </div>
+                        <ul>
+                            @if (i == 2)
+                            {
+                                <li>
+                                    <a href="@Url.Action("ContactView","Home")">Liên hệ với chúng tôi</a>
+                                </li>
+                            }
+                            @foreach (PostCategory category in parent.PostCategories)
+                            {
+                                <li>
+                                    <a href="@Url.Action("ListPost","Home",new {PostCategoryId= category.ID,name=Html.ConvertToUnSign(category.CategoryName) })">@category.CategoryName</a>
+                                </li>
+                            }
+                            @if (i == 1)
+                            {
+                                <li>
+                                    <a href="@Url.Action("PaymentView","Home")">Thanh toán</a>
+                                </li>
+                            }
+                            @if (i == 3)
+                            {
+                                <li>
+                                    <a href="@Url.Action("TypicalCustomerView","Home")">Khách hàng tiêu biểu</a>
+                                </li>
+                            }
+                        </ul>
                     </div>
-                    <ul>
-                        <li><a href="#">Giới thiệu</a></li>
-                        <li><a href="#"> Điều khoản và dịch vụ </a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Thanh toán</a></li>
-                    </ul>
-                </div>
-                <div class="col-5 col-md-3 service">
-                    <div class="title">
-                        DỊCH VỤ KHÁCH HÀNG
-                    </div>
-                    <ul>
-                        <li><a href="#">Liên hệ chúng tôi</a></li>
-                        <li><a href="#">Giúp đỡ và tư vấn</a></li>
-                        <li><a href="#">Vận chuyển và trả hàng</a></li>
-                        <li><a href="#">Các điều khoản và điều kiện</a></li>
-                        <li><a href="#">Chính sách hoàn tiền</a></li>
-                    </ul>
-                </div>
-                <div class="col-5 col-md-3 about">
-                    <div class="title">
-                        Khách hàng cần biết
-                    </div>
-                    <ul>
-                        <li><a href="#">Khuyến mại</a></li>
-                        <li><a href="#">Hồ sơ thi công</a></li>
-                        <li><a href="#">Chính sách đại lý </a></li>
-                        <li><a href="#">Hồ sơ năng lực </a></li>
-                        <li><a href="#">Khách hàng tiêu biểu</a></li>
-                    </ul>
-                </div>
+                    i++;
+                }
             </div>
         </div>
         <hr />
         <div class="container">
             <div class="row contact">
                 <div class="col-12 col-md-8 text-left">
-                    ©Copyright by SKEY 2020. All right Reserved. Designed by Vicogroup.vn
+                    @config.CopyRight
                 </div>
             </div>
         </div>

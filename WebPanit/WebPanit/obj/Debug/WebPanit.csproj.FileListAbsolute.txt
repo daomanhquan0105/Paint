@@ -77,7 +77,6 @@ G:\ViCoGroup\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updateDatabase.reso
 G:\ViCoGroup\WebPanit\WebPanit\bin\CKFinder.dll
 G:\ViCoGroup\WebPanit\WebPanit\bin\CKFinder.pdb
 G:\ViCoGroup\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.RemoveTable.resources
-G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.csprojAssemblyReference.cache
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.initalDatabase.resources
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.UpdataUserRole.resources
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updateNameTable.resources
@@ -155,3 +154,18 @@ G:\ViCoGroup\Paint\WebPanit\WebPanit\bin\System.Web.WebPages.Deployment.xml
 G:\ViCoGroup\Paint\WebPanit\WebPanit\bin\System.Web.WebPages.Razor.xml
 G:\ViCoGroup\Paint\WebPanit\WebPanit\bin\Antlr3.Runtime.pdb
 G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.csproj.CopyComplete
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updateDatabaseForVirtual.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updateForTableTradeMark.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updatefortableProduct.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updateTradeMarkForProduct.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.AddTableToDatabase.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.UpdateTableContact.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.UpdateTableTypicalCustomer.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.UpdatedTableLibraryImages.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.addtablePostcategoryParent.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updatatableConfig.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.tableReceiveEmail.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOrder.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOrder2.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.Migrations.updataTableOrder3.resources
+G:\ViCoGroup\Paint\WebPanit\WebPanit\obj\Debug\WebPanit.csprojAssemblyReference.cache

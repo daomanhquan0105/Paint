@@ -15,13 +15,16 @@ using WebPanit.ViewModel;
 
 namespace WebPanit.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly DataEntities _db = new DataEntities();
+        [Route("Admin")]
         public ActionResult Index()
         {
             return View();
         }
+
         #region Image Processing Function
         private string AddImageToFolder(HttpPostedFileBase picture, string imgPath)
         {
@@ -116,16 +119,6 @@ namespace WebPanit.Controllers
             {
                 var imgPath = "/Images/Banners/" + DateTime.Now.ToString("yyyy/MM/dd");
                 HtmlHelpers.CreateFolder(Server.MapPath(imgPath));
-
-                var imgFileName = DateTime.Now.ToFileTimeUtc() + Path.GetExtension(picture.FileName);
-
-                if (System.IO.File.Exists(Server.MapPath(imgPath+ "/" + imgFileName)))
-                {
-                    System.IO.File.Delete(Server.MapPath(imgPath + "/" + imgFileName));
-                }
-                var newImage = Image.FromStream(picture.InputStream);
-                var fixSizeImage = HtmlHelpers.FixedSize(newImage, banner.Width, banner.Height, true);
-                HtmlHelpers.SaveJpeg(Server.MapPath(Path.Combine(imgPath, imgFileName)), fixSizeImage, 90);
                 if (banner.Image != null)
                 {
                     if (banner.Image.Length > 0)
@@ -133,7 +126,7 @@ namespace WebPanit.Controllers
                         HtmlHelpers.DeleteFile(Server.MapPath("/Images/Banners/" + banner.Image));
                     }
                 }
-                banner.Image = DateTime.Now.ToString("yyyy/MM/dd") + "/" + imgFileName;
+                banner.Image = DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddResizeImageToFolder(picture,imgPath,banner.Width,banner.Height);
             }
             return true;
         }
@@ -251,136 +244,105 @@ namespace WebPanit.Controllers
         }
         #endregion
 
-        #region UserRole
-        #region Login-logout
-        [AllowAnonymous]
+        #region Contact
+        public ActionResult ListContact()
+        {
+            return View(_db.Contacts.ToList());
+        }
         [HttpGet]
-        public ActionResult LoginAction()
+        public PartialViewResult ContactDetail(int? id)
         {
-            return View();
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public ActionResult LoginAction(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                UserRole UserRole = _db.UserRoles.Where(x => x.UserName == model.UserName).FirstOrDefault();
-                if (UserRole == null) return Content("<script>alert('Sai tài khoản');</script>");
-                if (!HtmlHelpers.VerifyHash(model.PassWord, "SHA256", UserRole.PassWord))
-                    return Content("<script>alert('Sai mật khẩu');window.location.href='/UserRole/LoginAction'</script>");
-                FormsAuthentication.SetAuthCookie(model.UserName, true);
-                return Content("<script>alert('Đăng nhập thành công'); window.location.href='/UserRole/Index'</script>");
-            }
-            return View(model);
-        }
-
-        public ActionResult LogoutAction()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction(nameof(LoginAction));
-        }
-        #endregion
-        private UserRole GetUserRole()
-        {
-            var ticket = Request.Cookies[FormsAuthentication.FormsCookieName];
-            var authenTicket = FormsAuthentication.Decrypt(ticket.Value);
-            UserRole UserRole = _db.UserRoles.Where(x => x.UserName == authenTicket.Name).FirstOrDefault();
-            return UserRole;
-        }
-
-        public ActionResult ListUserRole()
-        {
-            return View(_db.UserRoles.ToList());
-        }
-
-        #region Add-update-delete
-        [HttpGet]
-        public ActionResult AddOrUpdateUserRole(int? id)
-        {
-            UserRole UserRole = _db.UserRoles.SingleOrDefault(x => x.Id == id);
-            if (id > 0 && UserRole == null) return HttpNotFound();
-            if (UserRole != null)
-            {
-                if (UserRole.UserName == "Admin" || UserRole.UserName == "admin")
-                {
-                    return RedirectToAction(nameof(ListUserRole));
-                }
-            }
-            return View(UserRole);
-        }
-
-        [HttpPost]
-        public ActionResult AddOrUpdateUserRole(UserRole UserRole, string confimPass)
-        {
-            if (UserRole.UserName == "Admin" || UserRole.UserName == "admin")
-            {
-                ModelState.AddModelError("", @"Không được lấy tên là admin hoặc Admin");
-                return View(UserRole);
-            }
-            if (ModelState.IsValid)
-            {
-                if (UserRole.PassWord != confimPass)
-                {
-                    ModelState.AddModelError("", @"Mật khẩu xác nhận không khớp nhau");
-                    return View(UserRole);
-                }
-                UserRole.PassWord = HtmlHelpers.ComputeHash(UserRole.PassWord, "SHA256", null);
-                _db.UserRoles.AddOrUpdate(UserRole);
-                _db.SaveChanges();
-                FormsAuthentication.SignOut();
-                return RedirectToAction(nameof(ListUserRole));
-
-            }
-            return View(UserRole);
+            Contact contact = _db.Contacts.SingleOrDefault(x => x.Id == id);
+            if (contact == null && id > 0) return null;
+            return PartialView(contact);
         }
         [HttpPost]
-        public JsonResult DeleteUserRole(int id)
+        public JsonResult DeleteContact(int? id)
         {
-            UserRole UserRole = _db.UserRoles.SingleOrDefault(x => x.Id == id);
-            if (UserRole == null || UserRole.UserName=="Admin")
-            {
-                return Json(false, JsonRequestBehavior.AllowGet);
-            }
-            _db.UserRoles.Remove(UserRole);
+            Contact contact = _db.Contacts.SingleOrDefault(x => x.Id == id);
+            if (contact == null && id > 0) return Json(false,JsonRequestBehavior.AllowGet);
+            _db.Contacts.Remove(contact);
             _db.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
-        #region Chang PassWord
-
-        [HttpGet]
-        public ActionResult ChangePassWord()
+        #region Member
+        public ActionResult ListMember()
         {
-            return View();
+            return View(_db.Members.ToList());
+        }
+        [HttpGet]
+        public PartialViewResult MemberDetail(int id)
+        {
+            Member member = _db.Members.SingleOrDefault(x => x.Id == id);
+            return PartialView(member);
         }
         [HttpPost]
-        public ActionResult ChangePassWord(ChangPasswordViewModel model)
+        public JsonResult DeleteMember(int? id)
         {
-            if (ModelState.IsValid)
-            {
-                UserRole UserRole = GetUserRole();
-                if (!HtmlHelpers.VerifyHash(model.OldPassWord, "SHA256", UserRole.PassWord))
-                {
-                    ModelState.AddModelError("", @"Mật khẩu cũ không chính xác!");
-                    return View(model);
-                }
-                if (model.NewPassWord != model.ConfimPassword)
-                {
-                    ModelState.AddModelError("", @"Mật khẩu mới không khớp!");
-                    return View(model);
-                }
-                UserRole.PassWord = HtmlHelpers.ComputeHash(model.NewPassWord, "SHA256", null);
-                _db.UserRoles.AddOrUpdate(UserRole);
-                _db.SaveChanges();
-
-                return RedirectToAction(nameof(LoginAction));
-            }
-            return View(model);
+            Member member = _db.Members.SingleOrDefault(x => x.Id == id);
+            if (member == null) return Json(false, JsonRequestBehavior.AllowGet);
+            List<Order> orders = _db.Orders.Where(x => x.MemberID == id).ToList();
+            _db.Orders.RemoveRange(orders);
+            _db.Members.Remove(member);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+        #region Order
+        public ActionResult ListOrder()
+        {
+            //return View(_db.Orders.OrderBy(x => x.ID).ToPagedList(page ?? 1, 15));
+            return View(_db.Orders.OrderBy(x => x.ID).ToList());
+        } 
+        [HttpGet]
+        public PartialViewResult OrderUnPaidPartial(int? page=1)
+        {
+            return PartialView(_db.Orders.Where(x=>x.Status==false).OrderBy(x => x.ID).ToPagedList(page ?? 1, 15));
+        }
+        [HttpGet]
+        public PartialViewResult OrderPaidPartial(int? page=1)
+        {
+            return PartialView(_db.Orders.Where(x=>x.Status==true).OrderBy(x => x.ID).ToPagedList(page ?? 1, 15));
+        }
+
+        [HttpGet]
+        public ActionResult OrderDetail(int id)
+        {
+            Order order = _db.Orders.SingleOrDefault(x => x.ID == id);
+            if (order == null) return HttpNotFound();
+            return View(order);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteOrder(int id)
+        {
+            Order order = _db.Orders.SingleOrDefault(x => x.ID == id);
+            if (order == null) return Json(false,JsonRequestBehavior.AllowGet);
+            _db.Orders.Remove(order);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult OrderStatus(int id)
+        {
+            Order order = _db.Orders.SingleOrDefault(x => x.ID == id);
+            if (order == null) return Json(false, JsonRequestBehavior.AllowGet);
+            if (order.Status) order.Status = false;
+            else order.Status = true;
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet); 
+        }
+        public JsonResult ShipDateOrder(int id,string shipDate)
+        {
+            Order order = _db.Orders.SingleOrDefault(x => x.ID == id);
+            if (order == null) return Json(false, JsonRequestBehavior.AllowGet);
+            order.ShipDate = DateTime.Parse(shipDate);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
         #endregion
 
         #region FeedBack
@@ -476,7 +438,8 @@ namespace WebPanit.Controllers
 
         public ActionResult ListPost(int? page)
         {
-            return View(_db.Posts.OrderBy(x => x.DisPlayOrder).ToPagedList(page ?? 1, 15));
+            //OrderBy(x => x.DisPlayOrder).ToPagedList(page ?? 1, 15)
+            return View(_db.Posts.ToList());
         }
 
         #region Add-Update post
@@ -486,6 +449,7 @@ namespace WebPanit.Controllers
         {
             Post post = _db.Posts.SingleOrDefault(x => x.Id == id);
             if (id > 0 && post == null) return HttpNotFound();
+            ViewBag.Table_PostCategory = _db.Table_PostCategory.ToList();
             return View(post);
         }
 
@@ -592,7 +556,8 @@ namespace WebPanit.Controllers
         public ActionResult AddOrUpDatePostCategory(int? id)
         {
             PostCategory postCategory = _db.Table_PostCategory.SingleOrDefault(a => a.ID == id);
-            if (id > 0 && postCategory == null) return HttpNotFound();
+            if (id > 0 && postCategory == null) return HttpNotFound(); 
+            ViewBag.categoryParents = _db.PostCategoryParents.Where(x => x.Active == true).OrderBy(x => x.DisplayOrder).ToList();
             return View(postCategory);
         }
         [HttpPost]
@@ -603,7 +568,8 @@ namespace WebPanit.Controllers
                 _db.Table_PostCategory.AddOrUpdate(postCategory);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(ListPostCategory));
-            }
+            } 
+            ViewBag.categoryParents = _db.PostCategoryParents.Where(x => x.Active == true).OrderBy(x => x.DisplayOrder).ToList();
             return View(postCategory);
         }
         [HttpPost]
@@ -617,27 +583,91 @@ namespace WebPanit.Controllers
         }
         #endregion
 
+        #region PostCategory Parent
+        public ActionResult ListPostCategoryParent()
+        {
+            return View(_db.PostCategoryParents.ToList());
+        }
+        [HttpGet]
+        public ActionResult AddOrUpdatePostCategoryParent(int? id)
+        {
+            PostCategoryParent parent = _db.PostCategoryParents.SingleOrDefault(x => x.Id == id);
+            if (parent == null && id > 0) return HttpNotFound();
+            
+            return View(parent);
+        }
+        [HttpPost]
+        public ActionResult AddOrUpdatePostCategoryParent(PostCategoryParent parent)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.PostCategoryParents.AddOrUpdate(parent);
+                _db.SaveChanges();
+                return RedirectToAction("ListPostCategoryParent");
+            }
+
+            return View(parent);
+        }
+        [HttpPost]
+        public JsonResult DeletePostCategoryParent(int? id)
+        {
+            PostCategoryParent parent = _db.PostCategoryParents.SingleOrDefault(x => x.Id == id);
+            if (parent == null && id > 0) return Json(false, JsonRequestBehavior.AllowGet);
+            List<PostCategory> postCategories = _db.Table_PostCategory.Where(x => x.ParentPostCategoryID == id).ToList();
+            foreach(PostCategory postCategory in postCategories)
+            {
+                postCategory.ParentPostCategoryID = null;
+            }
+            _db.PostCategoryParents.Remove(parent);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CheckActivePostCategoryParent(int? id)
+        {
+            PostCategoryParent parent = _db.PostCategoryParents.SingleOrDefault(x => x.Id == id);
+            if (parent.Active) parent.Active = false;
+            else parent.Active = true;
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
         #region Product
         [HttpGet]
         public ActionResult ListProduct(int? page)
         {
-            return View(_db.Product.OrderBy(x=>x.DisplayOrder).ToPagedList(page ?? 1,15));
+            return View(_db.Products.OrderBy(x=>x.TradeMark.DisplayOrder).ToPagedList(page ?? 1,15));
         }
         [HttpGet]
         public ActionResult AddOrUpdateProduct(int? id)
         {
-            Product product = _db.Product.SingleOrDefault(x => x.Id == id);
+            Product product = _db.Products.SingleOrDefault(x => x.Id == id);
             if (id > 0 && product == null) return HttpNotFound();
+            ViewBag.ProductCategories = _db.Table_ProductCategory.ToList();
+            ViewBag.ListTradeMark= _db.TradeMarks.ToList();
             return View(product);
         }
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult AddOrUpdateProduct(Product product,List<HttpPostedFileBase> picture)
+        public ActionResult AddOrUpdateProduct(Product product,List<HttpPostedFileBase> pictures)
         {
+            
             if (ModelState.IsValid)
             {
-
+                if(!UploadImageProduct(product, pictures))
+                {
+                    ModelState.AddModelError("", @"Hãy chọn ảnh và chỉ tối đa 10 tấm, đúng định dạng jpg,png,jpeg,gif");
+                    ViewBag.ProductCategories = _db.Table_ProductCategory.ToList();
+                    ViewBag.ListTradeMark = _db.TradeMarks.ToList();
+                    return View(product);
+                }
+                _db.Products.AddOrUpdate(product);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(ListProduct));
             }
+            ViewBag.ProductCategories = _db.Table_ProductCategory.ToList();
+            ViewBag.ListTradeMark = _db.TradeMarks.ToList();
             return View(product);
         }
         private bool CheckImageProduct(Product product,List<HttpPostedFileBase> pictures)
@@ -645,7 +675,7 @@ namespace WebPanit.Controllers
             if (product.Id == 0 && pictures.Count() == 0) return false;
             if (product.Id > 0)
             {
-                Product product1 = _db.Product.Find(product.Id);
+                Product product1 = _db.Products.Find(product.Id);
                 if (product1.Images == null && pictures.Count() == 0) return false;
                 if (product1.Images != null)
                 {
@@ -675,7 +705,7 @@ namespace WebPanit.Controllers
                         var imgPath = "/Images/Products/" + DateTime.Now.ToString("yyyy/MM/dd");
                         HtmlHelpers.CreateFolder(Server.MapPath(imgPath));
 
-                        product.Images += DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddResizeImageToFolder(picture,imgPath,255,255) + ";";
+                        product.Images += DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddImageToFolder(picture,imgPath) + ";";
                     }
                 }
             }
@@ -684,7 +714,7 @@ namespace WebPanit.Controllers
         [HttpPost]
         public JsonResult DeleteProduct(int? id)
         {
-            Product product = _db.Product.SingleOrDefault(x => x.Id == id);
+            Product product = _db.Products.SingleOrDefault(x => x.Id == id);
             if (id > 0 && product == null) return Json(false, JsonRequestBehavior.AllowGet);
             if(product.Images != null)
             {
@@ -697,26 +727,27 @@ namespace WebPanit.Controllers
                     }
                 }
             }
-            _db.Product.Remove(product);
+            _db.Products.Remove(product);
             _db.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult DeleteImageProduct(int productId,int locationImage)
+        public PartialViewResult DeleteImageProduct(int productId,int locationImage)
         {
-            Product product = _db.Product.SingleOrDefault(x => x.Id == productId);
-            if (productId > 0 && product == null) return Json(false, JsonRequestBehavior.AllowGet);
+            Product product = _db.Products.SingleOrDefault(x => x.Id == productId);
+            if (productId > 0 && product == null) return PartialView();
             if (product.Images != null)
             {
                 string[] strs = product.Images.Split(';');
-                for(int i = 0; i < strs.Length; i++)
+                product.Images = "";
+                for(int i = 0; i < strs.Length-1; i++)
                 {
                     if (i == locationImage)
                     {
-                        if (System.IO.File.Exists(Server.MapPath("/Images/Products/" + strs[i])))
-                        {
-                            System.IO.File.Delete(Server.MapPath("/Images/Products/" + strs[i]));
-                        }
+                        //if (System.IO.File.Exists(Server.MapPath("/Images/Products/" + strs[i])))
+                        //{
+                        //    System.IO.File.Delete(Server.MapPath("/Images/Products/" + strs[i]));
+                        //}
                     }
                     else
                     {
@@ -725,9 +756,25 @@ namespace WebPanit.Controllers
                 }
             } 
             _db.SaveChanges();
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return PartialView(product);
         }
 
+        [HttpPost]
+        public JsonResult CheckFlagHomeProduct(int id)
+        {
+            Product product = _db.Products.SingleOrDefault(x => x.Id == id);
+            if (product.FlagHome == false) product.FlagHome = true;
+            else product.FlagHome = false; 
+            return Json(true);
+        }
+        [HttpPost]
+        public JsonResult CheckActiveProduct(int id)
+        {
+            Product product = _db.Products.SingleOrDefault(x => x.Id == id);
+            if (product.Active == false) product.Active = true;
+            else product.Active = false;
+            return Json(true);
+        }
         #endregion
 
         #region Productcategory
@@ -741,6 +788,7 @@ namespace WebPanit.Controllers
         {
             ProductCategory productCategory = _db.Table_ProductCategory.SingleOrDefault(x => x.ID == id);
             if (id > 0 && productCategory == null) return HttpNotFound();
+            ViewBag.TradeMark = _db.TradeMarks.ToList();
             return View(productCategory);
         }
         [ValidateInput(false)]
@@ -749,9 +797,12 @@ namespace WebPanit.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Table_ProductCategory.Add(productCategory);
+                _db.Table_ProductCategory.AddOrUpdate(productCategory);
                 _db.SaveChanges();
-                AddTagForProductCategory(productCategory.ID,TradeMarkIds);
+                if (TradeMarkIds.Count() > 0)
+                {
+                    AddTagForProductCategory(productCategory.ID, TradeMarkIds);
+                }
                 return RedirectToAction(nameof(ListProductCategory));
             }
             return View(productCategory);
@@ -780,16 +831,48 @@ namespace WebPanit.Controllers
             _db.SaveChanges();
         }
 
-
         [HttpPost]
         public JsonResult DeleteProductCategory(int? id)
         {
             ProductCategory productCategory = _db.Table_ProductCategory.SingleOrDefault(x => x.ID == id);
             if (id > 0 && productCategory == null) return Json(false, JsonRequestBehavior.AllowGet);
+            List<Product> products = _db.Products.Where(x => x.ProductCategoryID == id).ToList();
+            _db.Products.RemoveRange(products);
+            List<TagProductCategory> tags = _db.Tag_ProductCategry_TradeMarks.Where(x => x.ProductCategoryID == productCategory.ID).ToList();
+            _db.Tag_ProductCategry_TradeMarks.RemoveRange(tags);
             _db.Table_ProductCategory.Remove(productCategory);
             _db.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult CheckFlagHomeProductCategory(int id)
+        {
+            ProductCategory productCategory = _db.Table_ProductCategory.SingleOrDefault(x => x.ID == id); 
+            if (productCategory.FlagHome == true) productCategory.FlagHome = false; 
+            else productCategory.FlagHome = true;
+            _db.SaveChanges();
+            return Json(true);
+        }
+        [HttpPost]
+        public JsonResult CheckMenuVerticalProductCategory(int id)
+        {
+            ProductCategory productCategory = _db.Table_ProductCategory.SingleOrDefault(x => x.ID == id);
+            if (productCategory.ShowMenuVertical == true) productCategory.FlagHome = false;
+            else productCategory.ShowMenuVertical = true;
+            _db.SaveChanges();
+            return Json(true);
+        }
+        [HttpPost]
+        public JsonResult CheckActiveProductCategory(int id)
+        { 
+            ProductCategory productCategory = _db.Table_ProductCategory.SingleOrDefault(x => x.ID == id);
+            if (productCategory.Active == true) productCategory.Active = false; 
+            else productCategory.Active = true;
+            _db.SaveChanges();
+            return Json(false);
+        }
+
+
         #endregion
 
         #region TradeMark
@@ -802,6 +885,7 @@ namespace WebPanit.Controllers
         {
             TradeMark tradeMark = _db.TradeMarks.SingleOrDefault(x => x.Id == id);
             if (tradeMark == null && id > 0) return HttpNotFound();
+            ViewBag.ProductCategor = _db.Table_ProductCategory.ToList();
             return View(tradeMark);
         }
         [ValidateInput(false)]
@@ -812,14 +896,16 @@ namespace WebPanit.Controllers
             {
                 if (!UploadeImageTradeMark(tradeMark, picture))
                 {
+                    ViewBag.ProductCategor = _db.Table_ProductCategory.ToList();
                     ModelState.AddModelError("", @"Hãy chọn ảnh");
                     return View(tradeMark);
                 }
-                _db.TradeMarks.Add(tradeMark);
+                _db.TradeMarks.AddOrUpdate(tradeMark);
                 _db.SaveChanges();
                 AddTagForTrandeMark(tradeMark.Id, ProductCategoryID);
                 return RedirectToAction(nameof(ListTradeMark));
             }
+            ViewBag.ProductCategor = _db.Table_ProductCategory.ToList();
             return View(tradeMark);
         }
         private bool CheckImageTradeMark(TradeMark tradeMark, HttpPostedFileBase picture)
@@ -838,10 +924,10 @@ namespace WebPanit.Controllers
 
             if (picture != null)
             {
-                var imgPath = "/Images/TrandMarks/" + DateTime.Now.ToString("yyyy/MM/dd");
+                var imgPath = "/Images/TradeMarks/" + DateTime.Now.ToString("yyyy/MM/dd");
                 HtmlHelpers.CreateFolder(Server.MapPath(imgPath));
 
-                tradeMark.Avatar = DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddResizeImageToFolder(picture, imgPath, 186, 113); 
+                tradeMark.Avatar = DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddImageToFolder(picture, imgPath); 
             }
             return true;
         }
@@ -869,6 +955,357 @@ namespace WebPanit.Controllers
             _db.SaveChanges();
         }
 
+        [HttpPost]
+        public JsonResult DeleteTradeMark(int id)
+        {
+            TradeMark tradeMark = _db.TradeMarks.SingleOrDefault(x => x.Id == id);
+            if (tradeMark == null && id > 0) return Json(false, JsonRequestBehavior.AllowGet);
+            if (tradeMark.Avatar != null)
+            {
+                if (System.IO.File.Exists(Server.MapPath("/Images/TradeMarks/" + tradeMark.Avatar)))
+                {
+                    System.IO.File.Delete(Server.MapPath("/Images/TradeMarkss/" + tradeMark.Avatar));
+                }
+            }
+            List<Product> products = _db.Products.Where(x => x.TradeMarkID == tradeMark.Id).ToList();
+            foreach(Product product in products)
+            {
+                product.TradeMarkID = null;
+            }
+            List<TagProductCategory> tags = _db.Tag_ProductCategry_TradeMarks.Where(x => x.TradeMarkID == tradeMark.Id).ToList();
+            _db.Tag_ProductCategry_TradeMarks.RemoveRange(tags);
+            _db.TradeMarks.Remove(tradeMark);
+            _db.SaveChanges();
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CheckFlagHomeTradeMark(int id)
+        {
+            TradeMark tradeMark = _db.TradeMarks.SingleOrDefault(x => x.Id == id);
+            if (tradeMark.FlagHome == true)
+            {
+                tradeMark.FlagHome = false;
+            }
+            else
+            {
+                tradeMark.FlagHome = true;
+            }
+            _db.SaveChanges();
+            return Json(false);
+        }
+        [HttpPost]
+        public JsonResult CheckActiveTradeMark(int id)
+        {
+            TradeMark tradeMark = _db.TradeMarks.SingleOrDefault(x => x.Id == id); 
+            if (tradeMark.Active == true)
+            {
+                tradeMark.Active = false;
+            }
+            else
+            {
+                tradeMark.Active = true;
+            }
+            _db.SaveChanges();
+            return Json(false);
+        }
+        #endregion
+
+        #region Typical Customer
+        public ActionResult ListTypicalCustomer()
+        {
+            return View(_db.TypicalCustomers.ToList());
+        }
+        [HttpGet]
+        public ActionResult AddOrUpdateTypicalCustomer(int? id)
+        {
+            TypicalCustomer customer = _db.TypicalCustomers.SingleOrDefault(x => x.Id == id);
+            if (id > 0 && customer == null) return HttpNotFound();
+            return View(customer);
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult AddOrUpdateTypicalCustomer(TypicalCustomer customer,HttpPostedFileBase picture)
+        {
+            if (ModelState.IsValid)
+            {
+                if(!UploadeImageTypicalCustomer(customer,picture))
+                {
+                    ModelState.AddModelError("", @"Hãy chọn ảnh");
+                    return View(customer);
+                }
+                _db.TypicalCustomers.AddOrUpdate(customer);
+                _db.SaveChanges();
+                return RedirectToAction("ListTypicalCustomer");
+            }
+            return View(customer);
+        }
+        private bool CheckImageTypicalCustomer(TypicalCustomer customer, HttpPostedFileBase picture)
+        {
+            if (customer.Id == 0 && picture == null) return false;
+            if (customer.Id > 0)
+            {
+                TypicalCustomer customer1 = _db.TypicalCustomers.SingleOrDefault(x => x.Id == customer.Id);
+                if (customer1.Avatar == null && picture == null) return false;
+                if (customer1.Avatar != null) customer.Avatar = customer1.Avatar;
+            }
+            return true;
+        }
+        private bool UploadeImageTypicalCustomer(TypicalCustomer customer, HttpPostedFileBase picture)
+        {
+            if (!CheckImageTypicalCustomer(customer, picture)) return false;
+            if (picture != null)
+            {
+                var imgPath = "/Images/TypicalCustomers/" + DateTime.Now.ToString("yyyy/MM/dd");
+                HtmlHelpers.CreateFolder(Server.MapPath(imgPath));
+
+                customer.Avatar = DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddImageToFolder(picture, imgPath);
+            }
+            return true;
+        }
+        [HttpPost]
+        public JsonResult DeleteTypicalCustomer(int id)
+        {
+            TypicalCustomer customer = _db.TypicalCustomers.SingleOrDefault(x => x.Id == id);
+            if (id > 0 && customer == null) return Json(false,JsonRequestBehavior.AllowGet);
+            if (customer.Avatar != null)
+            {
+                if (System.IO.File.Exists(Server.MapPath("/Images/TypicalCustomers/" + customer.Avatar)))
+                {
+                    System.IO.File.Delete(Server.MapPath("/Images/TypicalCustomers/" + customer.Avatar));
+                }
+            }
+            _db.TypicalCustomers.Remove(customer);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }  
+        [HttpPost]
+        public JsonResult CheckActiveTypicalCustomer(int id)
+        {
+            TypicalCustomer customer = _db.TypicalCustomers.SingleOrDefault(x => x.Id == id);
+            if (customer.Active == false) customer.Active = true;
+            else customer.Active = false;
+            _db.SaveChanges();
+            return Json(true);
+        }
+        #endregion
+
+        #region Library Image
+        public ActionResult ListAlbumImage()
+        {
+            return View(_db.LibraryImages.OrderBy(x => x.DisplayOrder).ToList());
+        }
+        [HttpGet]
+        public ActionResult AddOrUpdateItemForAlbum(int? id)
+        {
+            LibraryImage model = _db.LibraryImages.SingleOrDefault(x => x.Id == id);
+            if (id > 0 && model == null) return HttpNotFound();
+            return View(model);
+        }
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult AddOrUpdateItemForAlbum(LibraryImage model, HttpPostedFileBase picture)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!UploadeImageToAlbum(model, picture))
+                {
+                    ModelState.AddModelError("", @"Hãy chọn ảnh");
+                    return View(model);
+                }
+                _db.LibraryImages.AddOrUpdate(model);
+                _db.SaveChanges();
+                return RedirectToAction("ListAlbumImage");
+            }
+            return View(model);
+        }
+        private bool CheckImageAlbum(LibraryImage model, HttpPostedFileBase picture)
+        {
+            if (model.Id == 0 && picture == null) return false;
+            if (model.Id > 0)
+            {
+                LibraryImage library = _db.LibraryImages.SingleOrDefault(x => x.Id == model.Id);
+                if (library.Avatar == null && picture == null) return false;
+                if (library.Avatar != null) model.Avatar = library.Avatar;
+            }
+            return true;
+        }
+        private bool UploadeImageToAlbum(LibraryImage model, HttpPostedFileBase picture)
+        {
+            if (!CheckImageAlbum(model, picture)) return false;
+            if (picture != null)
+            {
+                var imgPath = "/Images/LibraryImages/" + DateTime.Now.ToString("yyyy/MM/dd");
+                HtmlHelpers.CreateFolder(Server.MapPath(imgPath));
+
+                model.Avatar = DateTime.Now.ToString("yyyy/MM/dd") + "/" + AddImageToFolder(picture, imgPath);
+            }
+            return true;
+        }
+        [HttpPost]
+        public JsonResult DeleteItemAlbum(int id)
+        {
+            LibraryImage model = _db.LibraryImages.SingleOrDefault(x => x.Id == id);
+            if (id > 0 && model == null) return Json(false, JsonRequestBehavior.AllowGet);
+            if (model.Avatar != null)
+            {
+                if (System.IO.File.Exists(Server.MapPath("/Images/LibraryImages/" + model.Avatar)))
+                {
+                    System.IO.File.Delete(Server.MapPath("/Images/LibraryImages/" + model.Avatar));
+                }
+            }
+            _db.LibraryImages.Remove(model);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult CheckActiveItemAlbum(int id)
+        {
+            LibraryImage model = _db.LibraryImages.SingleOrDefault(x => x.Id == id);
+            if (model.Active == false) model.Active = true;
+            else model.Active = false;
+            _db.SaveChanges();
+            return Json(true);
+        }
+        [HttpPost]
+        public JsonResult CheckFlagHomeItemAlbum(int id)
+        {
+            LibraryImage model = _db.LibraryImages.SingleOrDefault(x => x.Id == id);
+            if (model.FlagHome == false) model.FlagHome = true;
+            else model.FlagHome = false;
+            _db.SaveChanges();
+            return Json(true);
+        }
+        #endregion
+
+        #region UserRole
+        #region Login-logout
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult LoginAction()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult LoginAction(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRole UserRole = _db.UserRoles.Where(x => x.UserName == model.UserName).FirstOrDefault();
+                if (UserRole == null) return Content("<script>alert('Sai tài khoản');</script>");
+                if (!HtmlHelpers.VerifyHash(model.PassWord, "SHA256", UserRole.PassWord))
+                    return Content("<script>alert('Sai mật khẩu');window.location.href='/UserRole/LoginAction'</script>");
+                FormsAuthentication.SetAuthCookie(model.UserName, true);
+                return Content("<script>alert('Đăng nhập thành công'); window.location.href='/Admin/Index'</script>");
+            }
+            return View(model);
+        }
+
+        public ActionResult LogoutAction()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction(nameof(LoginAction));
+        }
+        #endregion
+        private UserRole GetUserRole()
+        {
+            var ticket = Request.Cookies[FormsAuthentication.FormsCookieName];
+            var authenTicket = FormsAuthentication.Decrypt(ticket.Value);
+            UserRole UserRole = _db.UserRoles.Where(x => x.UserName == authenTicket.Name).FirstOrDefault();
+            return UserRole;
+        }
+
+        public ActionResult ListUserRole()
+        {
+            return View(_db.UserRoles.ToList());
+        }
+
+        #region Add-update-delete
+        [HttpGet]
+        public ActionResult AddOrUpdateUserRole(int? id)
+        {
+            UserRole UserRole = _db.UserRoles.SingleOrDefault(x => x.Id == id);
+            if (id > 0 && UserRole == null) return HttpNotFound();
+            if (UserRole != null)
+            {
+                if (UserRole.UserName == "Admin" || UserRole.UserName == "admin")
+                {
+                    return RedirectToAction(nameof(ListUserRole));
+                }
+            }
+            return View(UserRole);
+        }
+
+        [HttpPost]
+        public ActionResult AddOrUpdateUserRole(UserRole UserRole, string confimPass)
+        {
+            if (UserRole.UserName == "Admin" || UserRole.UserName == "admin")
+            {
+                ModelState.AddModelError("", @"Không được lấy tên là admin hoặc Admin");
+                return View(UserRole);
+            }
+            if (ModelState.IsValid)
+            {
+                if (UserRole.PassWord != confimPass)
+                {
+                    ModelState.AddModelError("", @"Mật khẩu xác nhận không khớp nhau");
+                    return View(UserRole);
+                }
+                UserRole.PassWord = HtmlHelpers.ComputeHash(UserRole.PassWord, "SHA256", null);
+                _db.UserRoles.AddOrUpdate(UserRole);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(ListUserRole));
+
+            }
+            return View(UserRole);
+        }
+        [HttpPost]
+        public JsonResult DeleteUserRole(int id)
+        {
+            UserRole UserRole = _db.UserRoles.SingleOrDefault(x => x.Id == id);
+            if (UserRole == null || UserRole.UserName == "Admin")
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            _db.UserRoles.Remove(UserRole);
+            _db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Chang PassWord
+
+        [HttpGet]
+        public ActionResult ChangePassWord()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassWord(ChangPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                UserRole UserRole = GetUserRole();
+                if (!HtmlHelpers.VerifyHash(model.OldPassWord, "SHA256", UserRole.PassWord))
+                {
+                    ModelState.AddModelError("", @"Mật khẩu cũ không chính xác!");
+                    return View(model);
+                }
+                if (model.NewPassWord != model.ConfimPassword)
+                {
+                    ModelState.AddModelError("", @"Mật khẩu mới không khớp!");
+                    return View(model);
+                }
+                UserRole.PassWord = HtmlHelpers.ComputeHash(model.NewPassWord, "SHA256", null);
+                _db.UserRoles.AddOrUpdate(UserRole);
+                _db.SaveChanges();
+
+                return RedirectToAction(nameof(LoginAction));
+            }
+            return View(model);
+        }
+        #endregion
         #endregion
     }
 }

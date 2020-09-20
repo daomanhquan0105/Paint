@@ -27,8 +27,12 @@ namespace WebPanit.Models
 
         [DisplayName("Hiện trang chủ?")]
         public bool ShowOnHome { get; set; }
+        [DisplayName("Danh mục gốc")]
+        public int? ParentPostCategoryID { get; set; }
+        [ForeignKey("ParentPostCategoryID")]
+        public virtual PostCategoryParent  PostCategoryParents { get; set; } 
 
-        public List<Post> Posts { get; set; }
+        public virtual List<Post> Posts { get; set; }
         public PostCategory()
         {
             Active = true;
