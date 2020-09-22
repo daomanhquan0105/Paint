@@ -599,7 +599,7 @@ ul.accordion {
     }
 
     #carouselExampleControls {
-        max-width: 44.3%;
+        max-width: 38.5%;
         margin: 0 auto;
 
         .carousel-inner {
@@ -613,7 +613,7 @@ ul.accordion {
             .content {
                 font-family: Francisco-400;
                 font-size: 0.875rem;
-                line-height: 2.63rem;
+                line-height: 1.3rem;
                 color: $color-black-max;
                 margin-top: 1.75rem;
                 margin-bottom: 2.625rem;
@@ -636,12 +636,12 @@ ul.accordion {
         }
 
         .carousel-control-prev {
-            left: -16%;
+            left: -14%;
             color: $color-yellow-bold;
         }
 
         .carousel-control-next {
-            right: -16%;
+            right: -14%;
             color: $color-yellow-bold;
         }
     }

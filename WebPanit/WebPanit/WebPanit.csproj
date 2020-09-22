@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202009201307224_updatetableConfigSite.designer.cs">
       <DependentUpon>202009201307224_updatetableConfigSite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009220649594_UpdateTableFeedBack.cs" />
+    <Compile Include="Migrations\202009220649594_UpdateTableFeedBack.designer.cs">
+      <DependentUpon>202009220649594_UpdateTableFeedBack.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\ConfigSite.cs" />
@@ -1859,6 +1863,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009201307224_updatetableConfigSite.resx">
       <DependentUpon>202009201307224_updatetableConfigSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009220649594_UpdateTableFeedBack.resx">
+      <DependentUpon>202009220649594_UpdateTableFeedBack.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

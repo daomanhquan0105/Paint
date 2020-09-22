@@ -28,6 +28,9 @@ namespace WebPanit.Models
         [Display(Name = "Thứ tự"), Required(ErrorMessage = "Hãy nhập số thứ tự"), RegularExpression(@"\d+", ErrorMessage = "Chỉ nhập số nguyên dương"), UIHint("NumberBox")]
         public int DisplayOrder { get; set; }
 
+        [DisplayName("Ghi chú thêm"), UIHint("TextBox")]
+        public string NoteContent { get; set; }
+
         [DisplayName("Hiện thị")]
         public bool Active { get; set; }
 

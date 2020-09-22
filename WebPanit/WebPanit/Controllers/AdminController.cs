@@ -19,7 +19,6 @@ namespace WebPanit.Controllers
     public class AdminController : Controller
     {
         private readonly DataEntities _db = new DataEntities();
-        [Route("Admin")]
         public ActionResult Index()
         {
             return View();
@@ -1197,7 +1196,7 @@ namespace WebPanit.Controllers
                 if (!HtmlHelpers.VerifyHash(model.PassWord, "SHA256", UserRole.PassWord))
                     return Content("<script>alert('Sai mật khẩu');window.location.href='/UserRole/LoginAction'</script>");
                 FormsAuthentication.SetAuthCookie(model.UserName, true);
-                return Content("<script>alert('Đăng nhập thành công'); window.location.href='/Admin/Index'</script>");
+                return Content("<script>alert('Đăng nhập thành công'); window.location.href='/Admin'</script>");
             }
             return View(model);
         }
