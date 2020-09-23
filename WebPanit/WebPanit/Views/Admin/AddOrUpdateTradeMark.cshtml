@@ -14,92 +14,100 @@
         Danh sách nhãn hiệu
     </a>
 </p>
+<div class="box_content">
+    <form action="@Url.Action("AddOrUpdateTradeMark","Admin")" method="post" enctype="multipart/form-data">
 
-<form action="@Url.Action("AddOrUpdateTradeMark","Admin")" method="post" enctype="multipart/form-data">
 
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model != null)
+        {
+            @Html.HiddenFor(model => model.Id)
+        }
 
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @if (Model != null)
-    {
-        @Html.HiddenFor(model => model.Id)
-    }
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-form-label col-2">Loại sản phẩm</label>
-        <div class="col-md-10">
-            <select name="ProductCategoryID" class="chosen-select" multiple>
-                <option>Chọn nhãn hiệu</option>
-                @foreach (ProductCategory productCategory in productCategories)
-                {
-                    if (Model != null)
+        <div class="form-group row">
+            <label class="col-form-label col-2">Loại sản phẩm</label>
+            <div class="col-md-10">
+                <select name="ProductCategoryID" class="chosen-select" multiple>
+                    <option>Chọn nhãn hiệu</option>
+                    @foreach (ProductCategory productCategory in productCategories)
                     {
-                        if (Model.ListTagProductCategory.SingleOrDefault(x => x.ProductCategoryID == productCategory.ID) != null)
+                        if (Model != null)
                         {
-                            <option value="@productCategory.ID" selected>@productCategory.Name</option>
+                            if (Model.ListTagProductCategory.SingleOrDefault(x => x.ProductCategoryID == productCategory.ID) != null)
+                            {
+                                <option value="@productCategory.ID" selected>@productCategory.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@productCategory.ID">@productCategory.Name</option>
+                            }
                         }
                         else
                         {
                             <option value="@productCategory.ID">@productCategory.Name</option>
                         }
                     }
-                    else
-                    {
-                        <option value="@productCategory.ID">@productCategory.Name</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div id="LoadImages">
-                <input class="picture" type="file" name="picture" onchange="loadFile(event)" />
+                </select>
             </div>
-            <div id="images-group">
-                <div class="row">
-                    @if (Model != null)
-                    {
-                        if (Model.Id > 0)
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div id="LoadImages">
+                    <input class="picture" type="file" name="picture" onchange="loadFile(event)" />
+                </div>
+                <div id="images-group">
+                    <div class="row">
+                        @if (Model != null)
                         {
-                            <div class="multiple-images-wrapper col-md-2">
-                                <img src="~/Images/TradeMarks/@Model.Avatar" class="multipleImage img-thumbnail" />
-                            </div>
+                            if (Model.Id > 0)
+                            {
+                                <div class="multiple-images-wrapper col-md-2">
+                                    <img src="~/Images/TradeMarks/@Model.Avatar" class="multipleImage img-thumbnail" />
+                                </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DisplayOrder)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayOrder)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        @Html.EditorFor(model => model.Active)
-    </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.Active)
+            </div>
+        </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.FlagHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        @Html.EditorFor(model => model.FlagHome)
-    </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.FlagHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.FlagHome)
+            </div>
+        </div>
 
-    <div class="form-group row">
-        <button type="submit" class="btn" id="btnSubmit"></button>
-    </div>
-</form>
+        <div class="form-group row">
+            <div class="col">
+                <button type="submit" class="btn" id="btnSubmit"></button>
+            </div>
+        </div>
+    </form>
+</div>
+
 
 @section scripts{
     <script src="~/Scripts/chosen.jquery.min.js"></script>

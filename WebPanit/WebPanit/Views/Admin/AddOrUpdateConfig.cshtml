@@ -6,176 +6,187 @@
 }
 
 <h2 id="title"></h2>
+<p>
+    <a href="@Url.Action("ListConfigSite","Admin")" class="btn btn-outline-info">
+        Danh sách cấu hình website
+    </a>
+</p>
+<div class="box_content">
+    <form action="@Url.Action("AddOrUpdateConfig","Admin")" method="post" enctype="multipart/form-data">
 
-<form action="@Url.Action("AddOrUpdateConfig","Admin")" method="post" enctype="multipart/form-data">
 
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model != null)
+        {
+            @Html.HiddenFor(model => model.Id)
+        }
 
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @if (Model != null)
-    {
-        @Html.HiddenFor(model => model.Id)
-    }
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Facebook, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Facebook)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Youtube, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Youtube)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Instagram, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Instagram)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Twitter, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Twitter)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.GooglePlus, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.GooglePlus)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PhoneNumber)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Email)
-        </div>
-    </div>
-     
-    <div class="form-group row">
-        @Html.LabelFor(model => model.LogoTop, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div id="LoadImagesTop">
-                <input class="picture" type="file" name="pictureTop" onchange="loadFileLogoTop(event)" />
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Facebook, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Facebook)
             </div>
-            <div id="images-group">
-                <div class="row">
-                    @if (Model != null)
-                    {
-                        if (Model.Id > 0)
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Youtube, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Youtube)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Instagram, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Instagram)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Twitter, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Twitter)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.GooglePlus, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GooglePlus)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.LogoTop, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div id="LoadImagesTop">
+                    <input class="picture" type="file" name="pictureTop" onchange="loadFileLogoTop(event)" />
+                </div>
+                <div id="images-group">
+                    <div class="row">
+                        @if (Model != null)
                         {
-                            <div class="multiple-images-wrapper col-md-2">
-                                <img src="~/Images/ConfigSites/@Model.LogoTop" class="multipleImage img-thumbnail" />
-                            </div>
+                            if (Model.Id > 0)
+                            {
+                                <div class="multiple-images-wrapper col-md-2">
+                                    <img src="~/Images/ConfigSites/@Model.LogoTop" class="multipleImage img-thumbnail" />
+                                </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.LogoBottom, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div id="LoadImagesBot">
-                <input class="picture" type="file" name="pictureBottom" onchange="loadFileLogoBot(event)" />
-            </div>
-            <div id="images-group-bot">
-                <div class="row">
-                    @if (Model != null)
-                    {
-                        if (Model.Id > 0)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.LogoBottom, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div id="LoadImagesBot">
+                    <input class="picture" type="file" name="pictureBottom" onchange="loadFileLogoBot(event)" />
+                </div>
+                <div id="images-group-bot">
+                    <div class="row">
+                        @if (Model != null)
                         {
-                            <div class="multiple-images-wrapper col-md-2">
-                                <img src="~/Images/ConfigSites/@Model.LogoBottom" class="multipleImage img-thumbnail" />
-                            </div>
+                            if (Model.Id > 0)
+                            {
+                                <div class="multiple-images-wrapper col-md-2">
+                                    <img src="~/Images/ConfigSites/@Model.LogoBottom" class="multipleImage img-thumbnail" />
+                                </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Contact)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Contact, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Contact)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Payment)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Payment)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Helper, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Helper)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Helper, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Helper)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.PricePaint, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PricePaint)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PricePaint, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PricePaint)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Transport, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Transport)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Transport, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Transport)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.RefundPolicy, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RefundPolicy)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.RefundPolicy, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RefundPolicy)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.CopyRight, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CopyRight)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.CopyRight, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CopyRight)
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        @Html.EditorFor(model => model.Active)
-    </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.Active)
+            </div>
+        </div>
 
-    <div class="form-group row">
-        <button type="submit" id="btnSubmit" class="btn"></button>
-    </div>
-</form>
+        <div class="form-group row">
+            <div class="col">
+                <button type="submit" id="btnSubmit" class="btn"></button>
+            </div>
+        </div>
+    </form>
+</div>
+
  @section scripts{
     <script>
         if ($("#Id").val() > 0) {

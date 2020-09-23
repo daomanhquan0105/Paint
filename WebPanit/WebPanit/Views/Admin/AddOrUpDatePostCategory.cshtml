@@ -54,24 +54,21 @@
         <div class="form-group row">
             @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Active)
-                </div>
+                @Html.EditorFor(model => model.Active)
             </div>
         </div>
 
         <div class="form-group row">
             @Html.LabelFor(model => model.ShowOnHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ShowOnHome)
-                    @Html.ValidationMessageFor(model => model.ShowOnHome, "", new { @class = "text-danger" })
-                </div>
+                @Html.EditorFor(model => model.ShowOnHome)
             </div>
         </div>
 
         <div class="form-group row">
-            <button type="submit" id="btnSubmit" class="btn"></button>
+            <div class="col">
+                <button type="submit" id="btnSubmit" class="btn"></button>
+            </div>
         </div>
     </form>
 </div>

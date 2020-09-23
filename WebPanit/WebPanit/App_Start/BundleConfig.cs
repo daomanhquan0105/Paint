@@ -25,6 +25,7 @@ namespace WebPanit
             bundles.Add(new ScriptBundle("~/bundles/Slick/Script").Include(
                       "~/Scripts/Slick/slick.min.js"));
 
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/PagedList.css",
@@ -41,6 +42,8 @@ namespace WebPanit
                       "~/Content/Font/css/all.css"));
             bundles.Add(new StyleBundle("~/Content/CustomerCss/css").Include(
                       "~/Content/CustomerCss/ClientCss.min.css"));
+
+
             BundleTable.EnableOptimizations = true;
         }
     }

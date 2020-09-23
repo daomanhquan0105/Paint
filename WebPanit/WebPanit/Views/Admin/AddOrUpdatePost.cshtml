@@ -14,95 +14,98 @@
         Danh sách bài viết
     </a>
 </p>
-<form action="@Url.Action("AddOrUpdatePost","Admin")" method="post" enctype="multipart/form-data" class="mt-3">
+<div class="box_content">
+    <form action="@Url.Action("AddOrUpdatePost","Admin")" method="post" enctype="multipart/form-data" class="mt-3">
 
 
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @if (Model != null)
-    {
-        @Html.HiddenFor(model => model.Id)
-    }
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model != null)
+        {
+            @Html.HiddenFor(model => model.Id)
+        }
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Subject)
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.PostCategoryID, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10"> 
-            @Html.DropDownList("PostCategoryID", new SelectList(postCategories.OrderBy(x=>x.DisplayOrder), "ID","CategoryName"), "Chọn loại bài viết", new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Description)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Content)
-        </div>
-    </div>
-
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div id="LoadImages">
-                <input class="picture" type="file" name="picture" onchange="loadFile(event)" />
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subject)
             </div>
-            <div id="images-group">
-                <div class="row">
-                    @if (Model != null)
-                    {
-                        if (Model.Id > 0)
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.PostCategoryID, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PostCategoryID", new SelectList(postCategories.OrderBy(x => x.DisplayOrder), "ID", "CategoryName"), "Chọn loại bài viết", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content)
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div id="LoadImages">
+                    <input class="picture" type="file" name="picture" onchange="loadFile(event)" />
+                </div>
+                <div id="images-group">
+                    <div class="row">
+                        @if (Model != null)
                         {
-                            <div class="multiple-images-wrapper col-md-2">
-                                <img src="~/Images/Banners/@Model.Image" class="multipleImage img-thumbnail" />
-                            </div>
+                            if (Model.Id > 0)
+                            {
+                                <div class="multiple-images-wrapper col-md-2">
+                                    <img src="~/Images/Banners/@Model.Image" class="multipleImage img-thumbnail" />
+                                </div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-     
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.DisPlayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.DisPlayOrder)
-        </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.Active)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.DisPlayOrder, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisPlayOrder)
             </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        @Html.LabelFor(model => model.FlagHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.FlagHome)
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Active)
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.FlagHome, htmlAttributes: new { @class = "col-form-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.FlagHome)
+                </div>
+            </div>
+        </div>
 
 
-    <div class="form-group row">
-        <button type="submit" id="btnSubmit" class="btn"></button>
-    </div>
-</form>
+        <div class="form-group row">
+            <button type="submit" id="btnSubmit" class="btn"></button>
+        </div>
+    </form>
+</div>
+
 
 
 @section scripts{
